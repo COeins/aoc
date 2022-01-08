@@ -125,9 +125,7 @@ public class Day23 implements Day {
         int count = -1;
 
         while (state_costs.size() > processed.size() && steps-- > 0) {
-            Map<GameState, Integer> newstates = new HashMap<>();
             int preview = 0;
-//            preview = 3;
 
             if (count == 0) count = -1;
 
@@ -251,8 +249,8 @@ public class Day23 implements Day {
         //0123456789012
         //############# 0
         //#01.2.3.4.56# 1
-        //###B#C#B#D### 2 => 7, 11, ...
-        //  #A#D#C#A#   3 => 10, 14, ...
+        //###7#9#b#d### 2
+        //  #8#a#c#e#   3
         //  #########   4
 
         int a0 = -1, a1 = -1, b0 = -1, b1 = -1, c0 = -1, c1 = -1, d0 = -1, d1 = -1;
@@ -492,7 +490,7 @@ public class Day23 implements Day {
             return total;
         }
 
-        // works only for simple task
+        // works only for task 1
         public void printState() {
             System.out.println("#############\n" +
                     "#" + print[map[0]] + print[map[1]] + "." + print[map[2]] + "." + print[map[3]] + "."

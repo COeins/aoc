@@ -1,11 +1,8 @@
 package de.coeins.aoc21;
 
-import java.util.ArrayList;
-import java.util.HashSet;
-import java.util.List;
-import java.util.Set;
+import java.util.*;
 
-public class Day19 implements Day{
+public class Day19 implements Day {
 
     private static int X = 0;
     private static int Y = 1;
@@ -64,20 +61,16 @@ public class Day19 implements Day{
 
         List<Scanner> scanners = parse(input);
         List<Transformation> transforms = new ArrayList<>(scanners.size());
-        long start = System.currentTimeMillis();
         Set<Point> fixed = findDistinctPoints(scanners, THRESH, transforms);
-        long end = System.currentTimeMillis();
-        System.out.println("Time taken: " + (end - start));
         return fixed.size();
     }
 
     public long task2(String input) {
         List<Scanner> scanners = parse(input);
         List<Transformation> transforms = new ArrayList<>(scanners.size());
-        Set<Point> fixed = findDistinctPoints(scanners, THRESH, transforms);
+        findDistinctPoints(scanners, THRESH, transforms);
 
         int max_dist = 0;
-
         for (Transformation tA : transforms) {
             for (Transformation tB : transforms) {
                 int dist = tA.distance(tB);
@@ -91,9 +84,9 @@ public class Day19 implements Day{
 
     private static Set<Point> findDistinctPoints(List<Scanner> scanners, int threshold, List<Transformation> trans) {
         Set<Point> fixed = new HashSet<>();
-        Set<Integer> fixedHashes = new HashSet<>();
+        Set<HashPoints> fixedHashes = new HashSet<>();
         fixed.addAll(scanners.get(0).getPoints());
-//        fixedHashes.addAll(scanners.get(0).getHashes());
+        fixedHashes.addAll(scanners.get(0).getHashes());
 
         int max = scanners.size();
         int first = 1;
@@ -101,23 +94,21 @@ public class Day19 implements Day{
             List<Scanner> unsuccessful = new ArrayList<>(scanners.size());
             for (int i = first; i < scanners.size(); i++) {
                 Scanner s = scanners.get(i);
-                // TODO trying to optimize. Only go down if a number of distances are similar enough...
-//                int machtes = intersect(fixedHashes, s.getHashes());
-//                System.out.println("Comparing scanner " + s.name + ": " + machtes + " points match");
-//                if (machtes < 12) {
-//                    System.out.println("Skipping " + s.name + " for now. Only " + machtes + " points match");
-//                    continue;
-//                }
-                System.out.println(fixed.size() + " Points so far. Trying to fit " + s.name);
-                try {
-                    Transformation t = findTransform(fixed, s, threshold);
-                    System.out.println("  Found transform: " + t);
-                    List<Point> tp = s.getTransformedPoints(t);
-                    fixed.addAll(tp);
-//                    fixedHashes.addAll(s.getHashes());
-                    trans.add(t);
-                } catch (OutOfOptions outOfOptions) {
-                    System.out.println("  Could not find transform :( ");
+                Set<Point> matches = intersectHashes(fixedHashes, s.getHashes());
+                if (matches.size() >= 12) {
+                    //System.out.println(fixed.size() + " Points so far. Trying to fit " + s.name + ", " + matches.size() + " matches");
+                    try {
+                        Transformation t = findTransform(matches, s, threshold);
+                        System.out.println("  Found transform for scanner " + s.name + ": " + t);
+                        List<Point> tp = s.getTransformedPoints(t);
+                        fixed.addAll(tp);
+                        fixedHashes.addAll(s.getTranformedHashes(t));
+                        trans.add(t);
+                    } catch (OutOfOptions outOfOptions) {
+                        System.out.println("  Could not find transform for scanner " + s.name + ":( ");
+                        unsuccessful.add(s);
+                    }
+                } else {
                     unsuccessful.add(s);
                 }
             }
@@ -127,14 +118,17 @@ public class Day19 implements Day{
         return fixed;
     }
 
-    private static <T> int intersect(Set<T> a, Set<T> b) {
-        int count = 0;
-        for (T elema : a) {
-            for (T elemb : b) {
-                if (elema.equals(elemb)) count++;
+    private static Set<Point> intersectHashes(Set<HashPoints> fixed, Set<HashPoints> dynamic) {
+        Set<Point> intersection = new HashSet<>();
+        for (HashPoints ha : fixed) {
+            for (HashPoints hb : dynamic) {
+                if (ha.getHash() == hb.getHash()) {
+                    intersection.add(ha.getA());
+                    intersection.add(ha.getB());
+                }
             }
         }
-        return count;
+        return intersection;
     }
 
     private static Transformation findTransform(Set<Point> fixed, Scanner scr, int threshold) throws OutOfOptions {
@@ -154,7 +148,6 @@ public class Day19 implements Day{
                         }
                     }
                     //System.out.println(": "+ similarities);
-
                 }
             }
         }
@@ -247,11 +240,13 @@ public class Day19 implements Day{
             return new Shift(fixed.x() - compare.x(), fixed.y() - compare.y(), fixed.z() - compare.z());
         }
 
-        public int distance(Point p) {
-            int dx = Math.abs(x() - p.x());
-            int dy = Math.abs(y() - p.y());
-            int dz = Math.abs(z() - p.y());
-            return dx + dy + dz;
+        public int distHash(Point p) {
+            int[] hash = new int[3];
+            hash[0] = Math.abs(x() - p.x());
+            hash[1] = Math.abs(y() - p.y());
+            hash[2] = Math.abs(z() - p.z());
+            Arrays.sort(hash);
+            return (hash[0] << 16) + (hash[1] << 8) + hash[2];
         }
 
         public String toString() {
@@ -319,7 +314,7 @@ public class Day19 implements Day{
     private static class Scanner {
         final String name;
         List<Point> points;
-        Set<Integer> hashes;
+        Set<HashPoints> hashes;
 
         public Scanner(String name) {
             this.name = name;
@@ -342,22 +337,68 @@ public class Day19 implements Day{
             return transformed;
         }
 
-        // This was meant as an optimization. But does not work as expected yet...
-//        public Set<Integer> getHashes() {
-//            if (hashes != null) return hashes;
-//            hashes = new HashSet<>();
-//
-//            for (int i = 0; i < points.size(); i++) {
-//                for (int j = 0; j < points.size(); j++) {
-//                    if (i != j)
-//                        hashes.add(points.get(i).distance(points.get(j)));
-//                }
-//            }
-//            return hashes;
-//        }
+        public Set<HashPoints> getHashes() {
+            if (hashes != null) return hashes;
+            hashes = new HashSet<>();
+
+            for (int i = 0; i < points.size(); i++) {
+                for (int j = 0; j < points.size(); j++) {
+                    if (i != j)
+                        hashes.add(new HashPoints(points.get(i), points.get(j), points.get(i).distHash(points.get(j))));
+                }
+            }
+            return hashes;
+        }
+
+        public Collection<? extends HashPoints> getTranformedHashes(Transformation t) {
+            getHashes();
+            Set<HashPoints> newHashes = new HashSet<>();
+            for (HashPoints h : hashes) {
+                newHashes.add(new HashPoints(h.getA().transform(t), h.getB().transform(t), h.getHash()));
+            }
+            return newHashes;
+        }
 
         public String toString() {
             return name + " (" + points.size() + ")";
+        }
+
+    }
+
+    private static class HashPoints {
+        private final Point a;
+        private final Point b;
+        private final int hash;
+
+        public HashPoints(Point a, Point b, int hash) {
+            this.a = a;
+            this.b = b;
+            this.hash = hash;
+        }
+
+        @Override
+        public boolean equals(Object o) {
+            if (this == o) return true;
+            if (!(o instanceof HashPoints)) return false;
+            HashPoints that = (HashPoints) o;
+            return hash == that.hash;
+        }
+
+        @Override
+        public int hashCode() {
+            return hash;
+        }
+
+        public Point getA() {
+            return a;
+        }
+
+        public Point getB() {
+            return b;
+        }
+
+        public int getHash() {
+            return hash;
         }
     }
 }
