@@ -10,14 +10,14 @@ public class Main {
 		int inputs = -1;
 
 		// run only selected tasks/inputs
-		//        tasks = 2;
-		//        inputs = 0;
+		// tasks = 2;
+		// inputs = 0;
 
 		// all days
-		Set<Integer> days = Set.of(1, 2, 3, 4, 5, 6, 7, 8, 9, 10);
+		// Set<Integer> days = Set.of(1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11);
 
 		// only a single day
-		// Set<Integer> days = Set.of(10);
+		Set<Integer> days = Set.of(11);
 
 		int s = 0;
 		int e = 0;
