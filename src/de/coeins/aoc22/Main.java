@@ -14,10 +14,10 @@ public class Main {
 		// inputs = 0;
 
 		// all days
-		// Set<Integer> days = Set.of(1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11);
+		// Set<Integer> days = Set.of(1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13);
 
 		// only a single day
-		Set<Integer> days = Set.of(11);
+		Set<Integer> days = Set.of(13);
 
 		int s = 0;
 		int e = 0;
@@ -48,6 +48,7 @@ public class Main {
 						else
 							e++;
 					} catch (Exception ex) {
+						ex.printStackTrace();
 						log("### Finished run with " + ex.getClass().getSimpleName() + ": " + ex.getMessage()
 								+ " after " + (((double) (System.currentTimeMillis() - start)) / 1000) + " seconds\n");
 						e++;
@@ -70,6 +71,7 @@ public class Main {
 						else
 							e++;
 					} catch (Exception ex) {
+						ex.printStackTrace();
 						log("### Finished run with " + ex.getClass().getSimpleName() + ": " + ex.getMessage()
 								+ " after " + (((double) (System.currentTimeMillis() - start)) / 1000) + " seconds\n");
 						e++;

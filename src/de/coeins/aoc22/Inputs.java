@@ -359,6 +359,50 @@ public class Inputs {
 			});
 		} // 11
 		{
+			days.put(12, new Day12());
+			solutionsTask1.put(12, new Integer[] { 31, 350 });
+			solutionsTask2.put(12, new Integer[] { 29, 349 });
+			tasks.put(12, new String[] {
+					"Sabqponm\n" +
+							"abcryxxl\n" +
+							"accszExk\n" +
+							"acctuvwj\n" +
+							"abdefghi",
+					LargeInputs.DAY12
+			});
+		} // 12
+		{
+			days.put(13, new Day13());
+			solutionsTask1.put(13, new Integer[] { 13, 6272 });
+			solutionsTask2.put(13, new Integer[] { 140, -1 });
+			tasks.put(13, new String[] {
+					"[1,1,3,1,1]\n" +
+							"[1,1,5,1,1]\n" +
+							"\n" +
+							"[[1],[2,3,4]]\n" +
+							"[[1],4]\n" +
+							"\n" +
+							"[9]\n" +
+							"[[8,7,6]]\n" +
+							"\n" +
+							"[[4,4],4,4]\n" +
+							"[[4,4],4,4,4]\n" +
+							"\n" +
+							"[7,7,7,7]\n" +
+							"[7,7,7]\n" +
+							"\n" +
+							"[]\n" +
+							"[3]\n" +
+							"\n" +
+							"[[[]]]\n" +
+							"[[]]\n" +
+							"\n" +
+							"[1,[2,[3,[4,[5,6,7]]]],8,9]\n" +
+							"[1,[2,[3,[4,[5,6,0]]]],8,9]\n",
+					LargeInputs.DAY13
+			});
+		} // 13
+		{
 			days.put(0, new Day1());
 			solutionsTask1.put(0, new Integer[] { -1, -1 });
 			solutionsTask2.put(0, new Integer[] { -1, -1 });
