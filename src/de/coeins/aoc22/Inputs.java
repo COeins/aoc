@@ -403,6 +403,16 @@ public class Inputs {
 			});
 		} // 13
 		{
+			days.put(14, new Day14());
+			solutionsTask1.put(14, new Integer[] { 24, 698 });
+			solutionsTask2.put(14, new Integer[] { 93, 28594 });
+			tasks.put(14, new String[] {
+					"498,4 -> 498,6 -> 496,6\n" +
+							"503,4 -> 502,4 -> 502,9 -> 494,9",
+					LargeInputs.DAY14
+			});
+		} // 14
+		{
 			days.put(0, new Day1());
 			solutionsTask1.put(0, new Integer[] { -1, -1 });
 			solutionsTask2.put(0, new Integer[] { -1, -1 });
