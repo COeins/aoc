@@ -413,6 +413,46 @@ public class Inputs {
 			});
 		} // 14
 		{
+			days.put(15, new Day15());
+			solutionsTask1.put(15, new Long[] { 26L, 4876693L });
+			solutionsTask2.put(15, new Long[] { 56000011L, 11645454855041L });
+			tasks.put(15, new String[] {
+					"Sensor at x=2, y=18: closest beacon is at x=-2, y=15\n" +
+							"Sensor at x=9, y=16: closest beacon is at x=10, y=16\n" +
+							"Sensor at x=13, y=2: closest beacon is at x=15, y=3\n" +
+							"Sensor at x=12, y=14: closest beacon is at x=10, y=16\n" +
+							"Sensor at x=10, y=20: closest beacon is at x=10, y=16\n" +
+							"Sensor at x=14, y=17: closest beacon is at x=10, y=16\n" +
+							"Sensor at x=8, y=7: closest beacon is at x=2, y=10\n" +
+							"Sensor at x=2, y=0: closest beacon is at x=2, y=10\n" +
+							"Sensor at x=0, y=11: closest beacon is at x=2, y=10\n" +
+							"Sensor at x=20, y=14: closest beacon is at x=25, y=17\n" +
+							"Sensor at x=17, y=20: closest beacon is at x=21, y=22\n" +
+							"Sensor at x=16, y=7: closest beacon is at x=15, y=3\n" +
+							"Sensor at x=14, y=3: closest beacon is at x=15, y=3\n" +
+							"Sensor at x=20, y=1: closest beacon is at x=15, y=3",
+					LargeInputs.DAY15
+			});
+		} // 15
+		{
+			days.put(16, new Day16());
+			solutionsTask1.put(16, new Integer[] { 1651, 2059 });
+			solutionsTask2.put(16, new Integer[] { 1707, 2790 });
+			tasks.put(16, new String[] {
+					"Valve AA has flow rate=0; tunnels lead to valves DD, II, BB\n" +
+							"Valve BB has flow rate=13; tunnels lead to valves CC, AA\n" +
+							"Valve CC has flow rate=2; tunnels lead to valves DD, BB\n" +
+							"Valve DD has flow rate=20; tunnels lead to valves CC, AA, EE\n" +
+							"Valve EE has flow rate=3; tunnels lead to valves FF, DD\n" +
+							"Valve FF has flow rate=0; tunnels lead to valves EE, GG\n" +
+							"Valve GG has flow rate=0; tunnels lead to valves FF, HH\n" +
+							"Valve HH has flow rate=22; tunnel leads to valve GG\n" +
+							"Valve II has flow rate=0; tunnels lead to valves AA, JJ\n" +
+							"Valve JJ has flow rate=21; tunnel leads to valve II",
+					LargeInputs.DAY16
+			});
+		} // 16
+		{
 			days.put(0, new Day1());
 			solutionsTask1.put(0, new Integer[] { -1, -1 });
 			solutionsTask2.put(0, new Integer[] { -1, -1 });
