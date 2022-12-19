@@ -453,6 +453,37 @@ public class Inputs {
 			});
 		} // 16
 		{
+			days.put(17, new Day17());
+			solutionsTask1.put(17, new Long[] { 3068L, 3081L });
+			solutionsTask2.put(17, new Long[] { 1514285714288L, 1524637681145L });
+			tasks.put(17, new String[] {
+					">>><<><>><<<>><>>><<<>>><<<><<<>><>><<>>",
+					LargeInputs.DAY17
+			});
+		} // 17
+		{
+			days.put(18, new Day18());
+			solutionsTask1.put(18, new Integer[] { 10, 64, 4332 });
+			solutionsTask2.put(18, new Integer[] { 10, 58, 2524 });
+			tasks.put(18, new String[] {
+					"1,1,1\n2,1,1,",
+					"2,2,2\n" +
+							"1,2,2\n" +
+							"3,2,2\n" +
+							"2,1,2\n" +
+							"2,3,2\n" +
+							"2,2,1\n" +
+							"2,2,3\n" +
+							"2,2,4\n" +
+							"2,2,6\n" +
+							"1,2,5\n" +
+							"3,2,5\n" +
+							"2,1,5\n" +
+							"2,3,5",
+					LargeInputs.DAY18
+			});
+		} // 18
+		{
 			days.put(0, new Day1());
 			solutionsTask1.put(0, new Integer[] { -1, -1 });
 			solutionsTask2.put(0, new Integer[] { -1, -1 });
