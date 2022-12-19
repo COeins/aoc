@@ -8,10 +8,9 @@ class Day12 implements Day<Integer> {
 		List<int[][]> input = parse(in);
 		int[][] direction = input.get(0);
 		int[][] map = input.get(1);
-		logMap(map);
 		int[][] cost = new int[map.length][map[0].length];
 		findPath(direction[1], map, cost, direction[0][0], direction[0][1], 1);
-		logMap(cost);
+		//logMap(cost);
 		return cost[direction[1][0]][direction[1][1]] - 1;
 	}
 
@@ -28,7 +27,7 @@ class Day12 implements Day<Integer> {
 				int[][] cost = new int[map.length][map[0].length];
 				findPath(target, map, cost, i, j, 1);
 				int curPath = cost[target[0]][target[1]] - 1;
-				log("Path from ", i, j, "has length", curPath);
+				//log("Path from ", i, j, "has length", curPath);
 				if (curPath > 0 && curPath < minPath)
 					minPath = curPath;
 			}

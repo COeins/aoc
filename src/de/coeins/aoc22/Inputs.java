@@ -148,7 +148,7 @@ public class Inputs {
 		{
 			days.put(9, new Day9());
 			solutionsTask1.put(9, new Integer[] { 13, 88, 5907 });
-			solutionsTask2.put(9, new Integer[] { 1, 36, -1 });
+			solutionsTask2.put(9, new Integer[] { 1, 36, 2303 });
 			tasks.put(9, new String[] {
 					"R 4\n" +
 							"U 4\n" +
@@ -171,7 +171,7 @@ public class Inputs {
 		} // 9
 		{
 			days.put(10, new Day10());
-			solutionsTask1.put(10, new Integer[] { 13140, -1 });
+			solutionsTask1.put(10, new Integer[] { 13140, 13820 });
 			solutionsTask2.put(10, new Integer[] { -1, -1 });
 			tasks.put(10, new String[] {
 					"addx 15\n" +
@@ -374,7 +374,7 @@ public class Inputs {
 		{
 			days.put(13, new Day13());
 			solutionsTask1.put(13, new Integer[] { 13, 6272 });
-			solutionsTask2.put(13, new Integer[] { 140, -1 });
+			solutionsTask2.put(13, new Integer[] { 140, 22288 });
 			tasks.put(13, new String[] {
 					"[1,1,3,1,1]\n" +
 							"[1,1,5,1,1]\n" +
