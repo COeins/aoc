@@ -6,18 +6,18 @@ public class Main {
 
 	public static void main(String[] args) {
 		// run both tasks with all inputs
-		int tasks = 1 | 2;
-		int inputs = -1;
+		int tasks = 1|2;
+		int inputs = 1;
 
 		// run only selected tasks/inputs
 		// tasks = 2;
 		// inputs = 0;
 
 		// all days
-		Set<Integer> days = Set.of(1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 15, 16, 17, 18);
+		// Set<Integer> days = Set.of(1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 15, 16, 17, 18, 19);
 
 		// only a single day
-		// Set<Integer> days = Set.of(18);
+		Set<Integer> days = Set.of(19);
 
 		int s = 0;
 		int e = 0;

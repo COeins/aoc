@@ -484,6 +484,24 @@ public class Inputs {
 			});
 		} // 18
 		{
+			days.put(19, new Day19());
+			solutionsTask1.put(19, new Integer[] { 33, 1675 });
+			solutionsTask2.put(19, new Integer[] { 3472, 6840 });
+			tasks.put(19, new String[] {
+					"Blueprint 1: " +
+							"Each ore robot costs 4 ore. " +
+							"Each clay robot costs 2 ore. " +
+							"Each obsidian robot costs 3 ore and 14 clay. " +
+							"Each geode robot costs 2 ore and 7 obsidian.\n" +
+							"Blueprint 2: " +
+							"Each ore robot costs 2 ore. " +
+							"Each clay robot costs 3 ore. " +
+							"Each obsidian robot costs 3 ore and 8 clay. " +
+							"Each geode robot costs 3 ore and 12 obsidian.",
+					LargeInputs.DAY19
+			});
+		} // 19
+		{
 			days.put(0, new Day1());
 			solutionsTask1.put(0, new Integer[] { -1, -1 });
 			solutionsTask2.put(0, new Integer[] { -1, -1 });
