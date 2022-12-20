@@ -502,6 +502,21 @@ public class Inputs {
 			});
 		} // 19
 		{
+			days.put(20, new Day20());
+			solutionsTask1.put(20, new Long[] { 3L, 7584L });
+			solutionsTask2.put(20, new Long[] { 1623178306L, 4907679608191L });
+			tasks.put(20, new String[] {
+					"1\n" +
+							"2\n" +
+							"-3\n" +
+							"3\n" +
+							"-2\n" +
+							"0\n" +
+							"4",
+					LargeInputs.DAY20
+			});
+		} // 20
+		{
 			days.put(0, new Day1());
 			solutionsTask1.put(0, new Integer[] { -1, -1 });
 			solutionsTask2.put(0, new Integer[] { -1, -1 });

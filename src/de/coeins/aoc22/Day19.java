@@ -6,7 +6,7 @@ import java.util.List;
 class Day19 implements Day<Integer> {
 	private enum Resource {ORE, CLAY, OBSIDIAN, GEODE}
 
-	private int counter = 0;
+	private long counter = 0;
 
 	@Override
 	public Integer task1(String[] in) {
@@ -93,10 +93,10 @@ class Day19 implements Day<Integer> {
 					for (int res = 0; res < Resource.values().length; res++)
 						if (b.costs[sf.ordinal()][res] > 0 && (robots[res] == 0 || b.costs[sf.ordinal()][res] / robots[res] > time))
 							continue sfl;
-					maxProduced = Math.max(maxProduced, produce(b, newRes, robots, time - 1, sf)); // path + "S" + sf.ordinal()
+					maxProduced = Math.max(maxProduced, produce(b, newRes, robots, time - 1, sf));
 				}
 			} else if (maxProduced < 0 || time >= 9 - 2 * saveFor.ordinal())
-				maxProduced = Math.max(maxProduced, produce(b, newRes, robots, time - 1, saveFor));// path + "> ",
+				maxProduced = Math.max(maxProduced, produce(b, newRes, robots, time - 1, saveFor));
 		}
 		return maxProduced;
 	}
