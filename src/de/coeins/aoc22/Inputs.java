@@ -517,6 +517,72 @@ public class Inputs {
 			});
 		} // 20
 		{
+			days.put(21, new Day21());
+			solutionsTask1.put(21, new Long[] { 152L, 232974643455000L });
+			solutionsTask2.put(21, new Long[] { 301L, 3740214169961L });
+			tasks.put(21, new String[] {
+					"root: pppw + sjmn\n" +
+							"dbpl: 5\n" +
+							"cczh: sllz + lgvd\n" +
+							"zczc: 2\n" +
+							"ptdq: humn - dvpt\n" +
+							"dvpt: 3\n" +
+							"lfqf: 4\n" +
+							"humn: 5\n" +
+							"ljgn: 2\n" +
+							"sjmn: drzm * dbpl\n" +
+							"sllz: 4\n" +
+							"pppw: cczh / lfqf\n" +
+							"lgvd: ljgn * ptdq\n" +
+							"drzm: hmdt - zczc\n" +
+							"hmdt: 32",
+					LargeInputs.DAY21
+			});
+		} // 21
+		{
+			days.put(22, new Day22());
+			solutionsTask1.put(22, new Integer[] { 6032, 30552 });
+			solutionsTask2.put(22, new Integer[] { 5031, 184106 });
+			tasks.put(22, new String[] {
+					"        ...#\n" +
+							"        .#..\n" +
+							"        #...\n" +
+							"        ....\n" +
+							"...#.......#\n" +
+							"........#...\n" +
+							"..#....#....\n" +
+							"..........#.\n" +
+							"        ...#....\n" +
+							"        .....#..\n" +
+							"        .#......\n" +
+							"        ......#.\n" +
+							"\n" +
+							"10R5L5R10L4R5L5",
+					LargeInputs.DAY22
+			});
+		} // 22
+		{
+			days.put(23, new Day23());
+			solutionsTask1.put(23, new Integer[] { 25, 110, 3931 });
+			solutionsTask2.put(23, new Integer[] { 4, 20, -1 });
+			tasks.put(23, new String[] {
+					".....\n" +
+							"..##.\n" +
+							"..#..\n" +
+							".....\n" +
+							"..##.\n" +
+							".....",
+					"....#..\n" +
+							"..###.#\n" +
+							"#...#.#\n" +
+							".#...##\n" +
+							"#.###..\n" +
+							"##.#.##\n" +
+							".#..#..",
+					LargeInputs.DAY23
+			});
+		} // 23
+		{
 			days.put(0, new Day1());
 			solutionsTask1.put(0, new Integer[] { -1, -1 });
 			solutionsTask2.put(0, new Integer[] { -1, -1 });

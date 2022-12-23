@@ -7,7 +7,7 @@ class Day19 implements Day<Integer> {
 	private enum Resource {ORE, CLAY, OBSIDIAN, GEODE}
 
 	private long counter = 0;
-
+	private int currentBest = 0;
 	@Override
 	public Integer task1(String[] in) {
 		int sumProduced = 0;
@@ -16,6 +16,7 @@ class Day19 implements Day<Integer> {
 			int[] robots = new int[Resource.values().length];
 			robots[Resource.ORE.ordinal()] = 1;
 			this.counter = 0;
+			this.currentBest = 0;
 			int produced = produce(b, resources, robots, 24, null);
 			log("Blueprint", b.id, "produced", produced, "items after", this.counter, "tries");
 			sumProduced += b.id * produced;
@@ -33,6 +34,7 @@ class Day19 implements Day<Integer> {
 			int[] robots = new int[Resource.values().length];
 			robots[Resource.ORE.ordinal()] = 1;
 			this.counter = 0;
+			this.currentBest = 0;
 			int produced = produce(b, resources, robots, 32, null);
 			log("Blueprint", b.id, "produced", produced, "items after", this.counter, "tries");
 			prodProduced *= produced;
@@ -43,10 +45,15 @@ class Day19 implements Day<Integer> {
 	int produce(Blueprint b, int[] resources, int[] robots, int time, Resource saveFor) {
 		if (time <= 0) {
 			this.counter++;
+			if (resources[Resource.GEODE.ordinal()] > this.currentBest)
+				this.currentBest = resources[Resource.GEODE.ordinal()];
 			return resources[Resource.GEODE.ordinal()];
 		}
+		if (resources[Resource.GEODE.ordinal()] + robots[Resource.GEODE.ordinal()] * time + (time * (time - 1)) / 2 < this.currentBest) {
+			return resources[Resource.GEODE.ordinal()] + robots[Resource.GEODE.ordinal()] * time;
+		}
+
 		if (time == 1) {
-			this.counter++;
 			int[] newRes = new int[Resource.values().length];
 			for (int res = 0; res < Resource.values().length; res++)
 				newRes[res] = resources[res] + robots[res];
