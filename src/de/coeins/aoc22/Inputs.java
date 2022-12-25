@@ -583,6 +583,20 @@ public class Inputs {
 			});
 		} // 23
 		{
+			days.put(24, new Day24());
+			solutionsTask1.put(24, new Integer[] { 18, 271 });
+			solutionsTask2.put(24, new Integer[] { 54, 813 });
+			tasks.put(24, new String[] {
+					"#.######\n" +
+							"#>>.<^<#\n" +
+							"#.<..<<#\n" +
+							"#>v.><>#\n" +
+							"#<^v^^>#\n" +
+							"######.#",
+					LargeInputs.DAY24
+			});
+		} // 24
+		{
 			days.put(0, new Day1());
 			solutionsTask1.put(0, new Integer[] { -1, -1 });
 			solutionsTask2.put(0, new Integer[] { -1, -1 });
