@@ -40,7 +40,6 @@ class Day24 implements Day<Integer> {
 	}
 
 	private int findPath(List<Wind> winds, List<Boolean[][]> maps, Point max, Point start, Point target, int time) {
-
 		List<Point> previousStates = List.of(start);
 		for (int t = time + 1; t < time + 10000; t++) {
 			generateMaps(winds, maps, max, t);

@@ -24,7 +24,7 @@ class Day23 implements Day<Integer> {
 		while (move(elves, i++) > 0) {
 			if (i % 100 == 0) {
 				log("round", i);
-				visualize(elves, new HashMap<>());
+				//visualize(elves, new HashMap<>());
 			}
 		}
 		return i;

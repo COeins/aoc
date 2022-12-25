@@ -564,7 +564,7 @@ public class Inputs {
 		{
 			days.put(23, new Day23());
 			solutionsTask1.put(23, new Integer[] { 25, 110, 3931 });
-			solutionsTask2.put(23, new Integer[] { 4, 20, -1 });
+			solutionsTask2.put(23, new Integer[] { 4, 20, 944 });
 			tasks.put(23, new String[] {
 					".....\n" +
 							"..##.\n" +
@@ -597,14 +597,26 @@ public class Inputs {
 			});
 		} // 24
 		{
-			days.put(0, new Day1());
-			solutionsTask1.put(0, new Integer[] { -1, -1 });
-			solutionsTask2.put(0, new Integer[] { -1, -1 });
-			tasks.put(0, new String[] {
-					"",
-					LargeInputs.DAY1
+			days.put(25, new Day25());
+			solutionsTask1.put(25, new String[] { "2=-1=0", "122-2=200-0111--=200" });
+			solutionsTask2.put(25, new String[] { "", "" });
+			tasks.put(25, new String[] {
+					"1=-0-2\n" +
+							"12111\n" +
+							"2=0=\n" +
+							"21\n" +
+							"2=01\n" +
+							"111\n" +
+							"20012\n" +
+							"112\n" +
+							"1=-1=\n" +
+							"1-12\n" +
+							"12\n" +
+							"1=\n" +
+							"122",
+					LargeInputs.DAY25
 			});
-		} // template
+		} // 25
 
 	}
 }
