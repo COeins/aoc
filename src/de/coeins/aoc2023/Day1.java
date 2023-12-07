@@ -3,9 +3,9 @@ package de.coeins.aoc2023;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
-class Day1 implements Day {
+class Day1 implements Day<Integer> {
 	@Override
-	public Object task1(String[] in) {
+	public Integer task1(String[] in) {
 		int result = 0;
 		Pattern first = Pattern.compile("^[a-z]*([0-9]).*");
 		Pattern last = Pattern.compile(".*([0-9])[a-z]*$");
@@ -22,7 +22,7 @@ class Day1 implements Day {
 	}
 
 	@Override
-	public Object task2(String[] in) {
+	public Integer task2(String[] in) {
 		int result = 0;
 		Pattern first = Pattern.compile("([0-9]|one|two|three|four|five|six|seven|eight|nine).*");
 		Pattern last = Pattern.compile(".*([0-9]|one|two|three|four|five|six|seven|eight|nine)[a-z]*$");

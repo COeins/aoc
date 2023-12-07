@@ -18,10 +18,10 @@ public class Main {
 		int inputs = -1;
 
 		// all days
-		List<Integer> days = List.of(1, 2, 3, 4, 5, 6);
+		List<Integer> days = List.of(1, 2, 3, 4, 5, 6, 7);
 
 		// only a single day
-		// List<Integer> days = List.of(6);
+		// List<Integer> days = List.of(7);
 
 		int s = 0;
 		int e = 0;

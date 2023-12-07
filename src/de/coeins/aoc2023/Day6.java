@@ -1,8 +1,8 @@
 package de.coeins.aoc2023;
 
-class Day6 implements Day {
+class Day6 implements Day<Integer> {
 	@Override
-	public Object task1(String[] in) {
+	public Integer task1(String[] in) {
 		String[] t = in[0].split(" +");
 		String[] d = in[1].split(" +");
 
@@ -23,7 +23,7 @@ class Day6 implements Day {
 	}
 
 	@Override
-	public Object task2(String[] in) {
+	public Integer task2(String[] in) {
 		// 0 = x² -tx + d
 		// l1,2 = (t ± sqrt(t² -4d)) / 2
 		long t = Long.parseLong(in[0].split(":")[1].replaceAll("\\s", ""));
@@ -35,7 +35,7 @@ class Day6 implements Day {
 		return l2 - l1;
 	}
 
-	public Object task2simple(String[] in) {
+	public Integer task2simple(String[] in) {
 		long t = Long.parseLong(in[0].split(":")[1].replaceAll("\\s", ""));
 		long d = Long.parseLong(in[1].split(":")[1].replaceAll("\\s", ""));
 		long count = 0;

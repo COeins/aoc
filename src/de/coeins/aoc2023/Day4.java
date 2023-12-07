@@ -3,9 +3,9 @@ package de.coeins.aoc2023;
 import java.util.ArrayList;
 import java.util.List;
 
-class Day4 implements Day {
+class Day4 implements Day<Integer> {
 	@Override
-	public Object task1(String[] in) {
+	public Integer task1(String[] in) {
 		int sum = 0;
 		for (String l : in) {
 			int matches = findMatches(l);
@@ -17,7 +17,7 @@ class Day4 implements Day {
 	}
 
 	@Override
-	public Object task2(String[] in) {
+	public Integer task2(String[] in) {
 		int sum = 0;
 		int[] cards = new int[in.length];
 		for (int c = 0; c < in.length; c++) {

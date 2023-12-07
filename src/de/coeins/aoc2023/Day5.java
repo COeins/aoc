@@ -6,9 +6,9 @@ import java.util.EnumMap;
 import java.util.List;
 import java.util.Map;
 
-class Day5 implements Day {
+class Day5 implements Day<Long> {
 	@Override
-	public Object task1(String[] in) {
+	public Long task1(String[] in) {
 		List<Long[]> startValues = new ArrayList<>();
 		for (String v : in[0].split(":")[1].trim().split(" ")) {
 			long s = Long.parseLong(v);
@@ -20,7 +20,7 @@ class Day5 implements Day {
 	}
 
 	@Override
-	public Object task2(String[] in) {
+	public Long task2(String[] in) {
 		List<Long[]> startRanges = new ArrayList<>();
 		String[] values = in[0].split(":")[1].trim().split(" ");
 		for (int i = 0; i < values.length; i += 2) {

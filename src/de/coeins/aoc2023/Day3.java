@@ -1,8 +1,8 @@
 package de.coeins.aoc2023;
 
-class Day3 implements Day {
+class Day3 implements Day<Integer> {
 	@Override
-	public Object task1(String[] in) {
+	public Integer task1(String[] in) {
 		int sum = 0;
 		map2D map = new map2D(in, '.');
 		for (int i = 0; i < map.maxI; i++)
@@ -26,7 +26,7 @@ class Day3 implements Day {
 	}
 
 	@Override
-	public Object task2(String[] in) {
+	public Integer task2(String[] in) {
 		int sum = 0;
 		map2D map = new map2D(in, '.');
 		for (int i = 0; i < map.maxI; i++)

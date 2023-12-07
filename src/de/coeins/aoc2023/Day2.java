@@ -1,9 +1,9 @@
 package de.coeins.aoc2023;
 
-class Day2 implements Day {
+class Day2 implements Day<Integer> {
 
 	@Override
-	public Object task1(String[] in) {
+	public Integer task1(String[] in) {
 		int result = 0;
 		int[] max = new int[] { 12, 13, 14 };
 		games:
@@ -24,7 +24,7 @@ class Day2 implements Day {
 	}
 
 	@Override
-	public Object task2(String[] in) {
+	public Integer task2(String[] in) {
 		int result = 0;
 		games:
 		for (String l : in) {

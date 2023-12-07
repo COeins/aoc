@@ -123,7 +123,7 @@ public class Inputs {
 							"56 93 4",
 
 					LargeInputs.DAY5 });
-		} // X
+		} // 5
 
 		{
 			int day = 6;
@@ -135,8 +135,22 @@ public class Inputs {
 							"Distance:  9  40  200",
 
 					LargeInputs.DAY6 });
-		} // X
+		} // 6
 
+		{
+			int day = 7;
+			days.put(day, new Day7());
+			solutionsTask1.put(day, new Integer[] { 6440, 246163188 });
+			solutionsTask2.put(day, new Integer[] { 5905, 245794069 });
+			tasks.put(day, new String[] {
+					"32T3K 765\n" +
+							"T55J5 684\n" +
+							"KK677 28\n" +
+							"KTJJT 220\n" +
+							"QQQJA 483\n",
+
+					LargeInputs.DAY7 });
+		} // 7
 
 		{
 			int day = 0;
