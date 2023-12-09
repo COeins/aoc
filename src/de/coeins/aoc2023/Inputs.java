@@ -3,7 +3,6 @@ package de.coeins.aoc2023;
 import java.util.HashMap;
 import java.util.Map;
 
-
 public class Inputs {
 	public static Map<Integer, Day> days = new HashMap<>();
 	public static Map<Integer, String[]> tasks = new HashMap<>();
@@ -153,6 +152,53 @@ public class Inputs {
 		} // 7
 
 		{
+			int day = 8;
+			days.put(day, new Day8());
+			solutionsTask1.put(day, new Long[] { 2L, 6L, -1L , 19199L });
+			solutionsTask2.put(day, new Long[] { 2L, 6L, 6L, 13663968099527L });
+			tasks.put(day, new String[] {
+					"RL\n" +
+							"\n" +
+							"AAA = (BBB, CCC)\n" +
+							"BBB = (DDD, EEE)\n" +
+							"CCC = (ZZZ, GGG)\n" +
+							"DDD = (DDD, DDD)\n" +
+							"EEE = (EEE, EEE)\n" +
+							"GGG = (GGG, GGG)\n" +
+							"ZZZ = (ZZZ, ZZZ)",
+					"LLR\n" +
+							"\n" +
+							"AAA = (BBB, BBB)\n" +
+							"BBB = (AAA, ZZZ)\n" +
+							"ZZZ = (ZZZ, ZZZ)",
+					"LR\n" +
+							"\n" +
+							"11A = (11B, XXX)\n" +
+							"11B = (XXX, 11Z)\n" +
+							"11Z = (11B, XXX)\n" +
+							"22A = (22B, XXX)\n" +
+							"22B = (22C, 22C)\n" +
+							"22C = (22Z, 22Z)\n" +
+							"22Z = (22B, 22B)\n" +
+							"XXX = (XXX, XXX)",
+
+					LargeInputs.DAY8 });
+		} // 8
+
+		{
+			int day = 9;
+			days.put(day, new Day9());
+			solutionsTask1.put(day, new Integer[] { 114, 1884768153 });
+			solutionsTask2.put(day, new Integer[] { 2, 1031 });
+			tasks.put(day, new String[] {
+					"0 3 6 9 12 15\n" +
+							"1 3 6 10 15 21\n" +
+							"10 13 16 21 30 45",
+
+					LargeInputs.DAY9 });
+		} // 9
+
+		{
 			int day = 0;
 			days.put(day, new Day1());
 			solutionsTask1.put(day, new Integer[] { -1, -1 });
@@ -162,7 +208,6 @@ public class Inputs {
 
 					LargeInputs.DAY25 });
 		} // X
-
 
 	}
 }

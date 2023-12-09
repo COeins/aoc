@@ -18,10 +18,13 @@ public class Main {
 		int inputs = -1;
 
 		// all days
-		List<Integer> days = List.of(1, 2, 3, 4, 5, 6, 7);
+		List<Integer> days = List.of(1, 2, 3, 4, 5, 6, 7, 8, 9);
 
 		// only a single day
-		// List<Integer> days = List.of(7);
+		//List<Integer> days = List.of(8);
+
+		// 0: no task logging, 1: only log sample tasks; 2: log all tasks
+		int verbosity = 2;
 
 		int s = 0;
 		int e = 0;
@@ -44,7 +47,7 @@ public class Main {
 					log(CYAN + "### Running day " + d + " task " + task + " input " + i + RESET);
 					long start = System.currentTimeMillis();
 					try {
-						logEnabled = i < taskInputs.length - 1;
+						logEnabled = verbosity > 0 && verbosity > 1 || i < taskInputs.length - 1;
 						Object result = task == 1 ? day.task1(taskInputs[i].split("\n")) : day.task2(taskInputs[i].split("\n"));
 						logEnabled = true;
 						String correct;
