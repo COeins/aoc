@@ -13,18 +13,20 @@ public class Main {
 	private static boolean logEnabled = true;
 
 	public static void main(String[] args) {
-		// run both tasks with all inputs
-		List<Integer> tasks = List.of(1, 2);
-		int inputs = -1;
-
-		// all days
-		List<Integer> days = List.of(1, 2, 3, 4, 5, 6, 7, 8, 9);
+		// run all days
+		List<Integer> days = List.of(1, 2, 3, 4, 5, 6, 7, 8, 9, 10);
 
 		// only a single day
-		//List<Integer> days = List.of(8);
+		// List<Integer> days = List.of(10);
+
+		// run both tasks
+		List<Integer> tasks = List.of(1, 2);
+
+		// -1: run all inputs, >=0 run only specified input
+		int inputs = -1;
 
 		// 0: no task logging, 1: only log sample tasks; 2: log all tasks
-		int verbosity = 2;
+		int verbosity = 1;
 
 		int s = 0;
 		int e = 0;

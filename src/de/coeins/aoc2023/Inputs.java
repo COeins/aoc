@@ -154,7 +154,7 @@ public class Inputs {
 		{
 			int day = 8;
 			days.put(day, new Day8());
-			solutionsTask1.put(day, new Long[] { 2L, 6L, -1L , 19199L });
+			solutionsTask1.put(day, new Long[] { 2L, 6L, -1L, 19199L });
 			solutionsTask2.put(day, new Long[] { 2L, 6L, 6L, 13663968099527L });
 			tasks.put(day, new String[] {
 					"RL\n" +
@@ -197,6 +197,54 @@ public class Inputs {
 
 					LargeInputs.DAY9 });
 		} // 9
+
+		{
+			int day = 10;
+			days.put(day, new Day10());
+			solutionsTask1.put(day, new Integer[] { 4, 8, 23, 70, 80, 6800 });
+			solutionsTask2.put(day, new Integer[] { 1, 1, 4, 8, 10, 483 });
+			tasks.put(day, new String[] {
+					".....\n" +
+							".S-7.\n" +
+							".|.|.\n" +
+							".L-J.\n" +
+							".....",
+					"..F7.\n" +
+							".FJ|.\n" +
+							"SJ.L7\n" +
+							"|F--J\n" +
+							"LJ...",
+					"...........\n" +
+							".S-------7.\n" +
+							".|F-----7|.\n" +
+							".||.....||.\n" +
+							".||.....||.\n" +
+							".|L-7.F-J|.\n" +
+							".|..|.|..|.\n" +
+							".L--J.L--J.\n" +
+							"...........",
+					".F----7F7F7F7F-7....\n" +
+							".|F--7||||||||FJ....\n" +
+							".||.FJ||||||||L7....\n" +
+							"FJL7L7LJLJ||LJ.L-7..\n" +
+							"L--J.L7...LJS7F-7L7.\n" +
+							"....F-J..F7FJ|L7L7L7\n" +
+							"....L7.F7||L7|.L7L7|\n" +
+							".....|FJLJ|FJ|F7|.LJ\n" +
+							"....FJL-7.||.||||...\n" +
+							"....L---J.LJ.LJLJ...",
+					"FF7FSF7F7F7F7F7F---7\n" +
+							"L|LJ||||||||||||F--J\n" +
+							"FL-7LJLJ||||||LJL-77\n" +
+							"F--JF--7||LJLJ7F7FJ-\n" +
+							"L---JF-JLJ.||-FJLJJ7\n" +
+							"|F|F-JF---7F7-L7L|7|\n" +
+							"|FFJF7L7F-JF7|JL---7\n" +
+							"7-L-JL7||F7|L7F-7F7|\n" +
+							"L.L7LFJ|||||FJL7||LJ\n" +
+							"L7JLJL-JLJLJL--JLJ.L",
+					LargeInputs.DAY10 });
+		} // 10
 
 		{
 			int day = 0;

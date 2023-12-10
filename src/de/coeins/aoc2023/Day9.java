@@ -44,10 +44,7 @@ class Day9 implements Day<Integer> {
 			differences[i] = numbers[i + 1] - numbers[i];
 			constant &= i == 0 || differences[i] == differences[i - 1];
 		}
-		if (constant)
-			return numbers[numbers.length - 1] + differences[0];
-		else
-			return numbers[numbers.length - 1] + nextNumer(differences);
+		return numbers[numbers.length - 1] + (constant ? differences[0] : nextNumer(differences));
 	}
 
 	int prevNumer(int[] numbers) {
@@ -57,12 +54,6 @@ class Day9 implements Day<Integer> {
 			differences[i] = numbers[i + 1] - numbers[i];
 			constant &= i == 0 || differences[i] == differences[i - 1];
 		}
-		if (constant)
-			return numbers[0] - differences[0];
-		else {
-			int prev = prevNumer(differences);
-			//log(prev, "<", differences);
-			return numbers[0] - prev;
-		}
+		return numbers[0] - (constant ? differences[0] : prevNumer(differences));
 	}
 }
