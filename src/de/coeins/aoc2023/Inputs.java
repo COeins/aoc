@@ -247,6 +247,26 @@ public class Inputs {
 		} // 10
 
 		{
+			int day = 11;
+			days.put(day, new Day11());
+			solutionsTask1.put(day, new Long[] { 374L, 10313550L });
+			solutionsTask2.put(day, new Long[] { 82000210L, 611998089572L });
+			tasks.put(day, new String[] {
+					"...#......\n" +
+							".......#..\n" +
+							"#.........\n" +
+							"..........\n" +
+							"......#...\n" +
+							".#........\n" +
+							".........#\n" +
+							"..........\n" +
+							".......#..\n" +
+							"#...#.....",
+
+					LargeInputs.DAY11 });
+		} // 11
+
+		{
 			int day = 0;
 			days.put(day, new Day1());
 			solutionsTask1.put(day, new Integer[] { -1, -1 });

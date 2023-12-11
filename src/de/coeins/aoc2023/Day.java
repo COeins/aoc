@@ -23,6 +23,13 @@ public interface Day<T> {
 			if (sb.length() > 2)
 				sb.setLength(sb.length() - 2);
 			return sb.append("]").toString();
+		} else if (o instanceof long[] a) {
+			StringBuilder sb = new StringBuilder("[");
+			for (long a1 : a)
+				sb.append(a1).append(", ");
+			if (sb.length() > 2)
+				sb.setLength(sb.length() - 2);
+			return sb.append("]").toString();
 		} else if (o instanceof Object[] a) {
 			StringBuilder sb = new StringBuilder("[");
 			for (Object a1 : a)
