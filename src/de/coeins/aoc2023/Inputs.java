@@ -267,6 +267,29 @@ public class Inputs {
 		} // 11
 
 		{
+			int day = 12;
+			days.put(day, new Day12());
+			solutionsTask1.put(day, new Long[] { 6L, 21L, 6981L });
+			solutionsTask2.put(day, new Long[] { 6L, 525152L, 4546215031609L });
+			tasks.put(day, new String[] {
+					"#.#.### 1,1,3\n" +
+							".#...#....###. 1,1,3\n" +
+							".#.###.#.###### 1,3,1,6\n" +
+							"####.#...#... 4,1,1\n" +
+							"#....######..#####. 1,6,5\n" +
+							".###.##....# 3,2,1",
+
+					"???.### 1,1,3\n" +
+							".??..??...?##. 1,1,3\n" +
+							"?#?#?#?#?#?#?#? 1,3,1,6\n" +
+							"????.#...#... 4,1,1\n" +
+							"????.######..#####. 1,6,5\n" +
+							"?###???????? 3,2,1",
+
+					LargeInputs.DAY12 });
+		} // 12
+
+		{
 			int day = 0;
 			days.put(day, new Day1());
 			solutionsTask1.put(day, new Integer[] { -1, -1 });
