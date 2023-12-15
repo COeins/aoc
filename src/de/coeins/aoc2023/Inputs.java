@@ -334,6 +334,16 @@ public class Inputs {
 					LargeInputs.DAY14 });
 		} // 14
 
+		{
+			int day = 15;
+			days.put(day, new Day15());
+			solutionsTask1.put(day, new Integer[] { 1320, 521341 });
+			solutionsTask2.put(day, new Integer[] { 145, 252782 });
+			tasks.put(day, new String[] {
+					"rn=1,cm-,qp=3,cm=2,qp-,pc=4,ot=9,ab=5,pc-,pc=6,ot=7",
+
+					LargeInputs.DAY15 });
+		} // 15
 
 		{
 			int day = 0;
