@@ -14,10 +14,10 @@ public class Main {
 
 	public static void main(String[] args) {
 		// run all days
-		//List<Integer> days = List.of(1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12);
+		//List<Integer> days = List.of(1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14);
 
 		// only a single day
-		List<Integer> days = List.of(13);
+		List<Integer> days = List.of(14);
 
 		// run both tasks
 		List<Integer> tasks = List.of(1, 2);

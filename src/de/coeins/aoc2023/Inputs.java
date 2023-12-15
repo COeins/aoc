@@ -315,6 +315,27 @@ public class Inputs {
 		} // 13
 
 		{
+			int day = 14;
+			days.put(day, new Day14());
+			solutionsTask1.put(day, new Integer[] { 136, 109385 });
+			solutionsTask2.put(day, new Integer[] { 64, 93102 });
+			tasks.put(day, new String[] {
+					"O....#....\n" +
+							"O.OO#....#\n" +
+							".....##...\n" +
+							"OO.#O....O\n" +
+							".O.....O#.\n" +
+							"O.#..O.#.#\n" +
+							"..O..#O..O\n" +
+							".......O..\n" +
+							"#....###..\n" +
+							"#OO..#....",
+
+					LargeInputs.DAY14 });
+		} // 14
+
+
+		{
 			int day = 0;
 			days.put(day, new Day1());
 			solutionsTask1.put(day, new Integer[] { -1, -1 });

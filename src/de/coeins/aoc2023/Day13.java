@@ -1,8 +1,8 @@
 package de.coeins.aoc2023;
 
-class Day13 implements Day {
+class Day13 implements Day<Integer> {
 	@Override
-	public Object task1(String[] in) {
+	public Integer task1(String[] in) {
 		int sum = 0;
 		int blockStart = 0;
 		for (int i = 0; i < in.length; i++)
@@ -15,7 +15,7 @@ class Day13 implements Day {
 	}
 
 	@Override
-	public Object task2(String[] in) {
+	public Integer task2(String[] in) {
 		int sum = 0;
 		int blockStart = 0;
 		for (int i = 0; i < in.length; i++)
