@@ -346,6 +346,27 @@ public class Inputs {
 		} // 15
 
 		{
+			int day = 16;
+			days.put(day, new Day16());
+			solutionsTask1.put(day, new Integer[] { 46, 7884 });
+			solutionsTask2.put(day, new Integer[] { 51, 8185 });
+			tasks.put(day, new String[] {
+					".|...\\....\n" +
+							"|.-.\\.....\n" +
+							".....|-...\n" +
+							"........|.\n" +
+							"..........\n" +
+							".........\\\n" +
+							"..../.\\\\..\n" +
+							".-.-/..|..\n" +
+							".|....-|.\\\n" +
+							"..//.|....",
+
+					LargeInputs.DAY16 });
+		} // 16
+
+
+		{
 			int day = 0;
 			days.put(day, new Day1());
 			solutionsTask1.put(day, new Integer[] { -1, -1 });
