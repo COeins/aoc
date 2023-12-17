@@ -1,90 +1,136 @@
 package de.coeins.aoc2023;
 
 import java.lang.reflect.Array;
+import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
+import java.util.Optional;
 
 class Layered2DMap<E extends Layered2DMap.MapElement> {
-	final E[][] baseLayer;
-	final Map<Point, E> overrideLayer;
-	final int[][] overlay;
 
-	Layered2DMap(E[][] baseLayer, int[][] overlay) {
-		this.baseLayer = baseLayer;
+	final E[][] base;
+	final Map<Point, E> overrideLayer;
+	final int[][] layer;
+
+	Layered2DMap(E[][] base, int[][] layer) {
+		this.base = base;
 		this.overrideLayer = new HashMap<>();
-		this.overlay = overlay;
+		this.layer = layer;
 	}
 
 	public static <T extends Enum<T> & MapElement> Layered2DMap<T> parseCharacters(String[] in, int startLine, Class<T> elementType) {
 		T[] elements = elementType.getEnumConstants();
 		@SuppressWarnings("unchecked")
 		T[][] base = (T[][]) Array.newInstance(elementType, in.length - startLine, in[startLine].length());
-		for (int line = 0; line < in.length - startLine; line++) {
+		for (int x = 0; x < in.length - startLine; x++) {
 			nectcol:
-			for (int col = 0; col < in.length; col++) {
-				char c = in[line - startLine].charAt(col);
+			for (int y = 0; y < in[startLine].length(); y++) {
+				char c = in[x - startLine].charAt(y);
 				for (T e : elements)
 					if (e.getParseChar() == c) {
-						base[line][col] = e;
+						base[x][y] = e;
 						continue nectcol;
 					}
-				throw new RuntimeException("Invalid character at " + line + ", " + col + ": " + c);
+				throw new RuntimeException("Invalid character at " + x + ", " + y + ": " + c);
 			}
 		}
 		return new Layered2DMap<>(base, new int[base.length][base[0].length]);
 	}
 
+	public static Layered2DMap<Digits> parseDigits(String[] in, int startLine) {
+		return parseCharacters(in, startLine, Digits.class);
+	}
+
+	public int height() {
+		return base.length;
+	}
+
+	public int width() {
+		return base[0].length;
+	}
+
 	public boolean validPoint(Point pos) {
-		return pos.x >= 0 && pos.x < baseLayer.length
-				&& pos.y >= 0 && pos.y < baseLayer[0].length;
+		return pos.x >= 0 && pos.x < height()
+				&& pos.y >= 0 && pos.y < width();
 	}
 
-	public E getBasePoint(Point pos) {
-		return (E) baseLayer[pos.x][pos.y];
+	public E getBase(Point pos) {
+		return (E) base[pos.x][pos.y];
 	}
 
-	public E getBasePoint(Point pos, E defaultPoint) {
+	public E getBase(Point pos, E defaultPoint) {
 		if (validPoint(pos))
-			return getBasePoint(pos);
+			return getBase(pos);
 		else
 			return defaultPoint;
 	}
 
-	public int getOverlay(Point pos) {
-		return overlay[pos.x][pos.y];
+	public List<Point> findInBase(E search) {
+		List<Point> found = new ArrayList<>();
+		for (int x = 0; x < height(); x++)
+			for (int y = 0; y < width(); y++) {
+				Point p = new Point(x, y);
+				if (getBase(p) == search)
+					found.add(p);
+			}
+		return found;
 	}
 
-	public int getOverlay(Point pos, int defaultOverlay) {
+	public int getLayer(Point pos) {
+		return layer[pos.x][pos.y];
+	}
+
+	public int getLayer(Point pos, int defaultOverlay) {
 		if (validPoint(pos))
-			return getOverlay(pos);
+			return getLayer(pos);
 		else
 			return defaultOverlay;
 	}
 
 	public void setLayer(Point pos, int i) {
-		overlay[pos.x][pos.y] = i;
+		layer[pos.x][pos.y] = i;
 	}
 
 	public void resetLayer() {
-		for (int i = 0; i < height(); i++)
-			for (int j = 0; j < width(); j++)
-				overlay[i][j] = 0;
+		for (int x = 0; x < height(); x++)
+			for (int y = 0; y < width(); y++)
+				layer[x][y] = 0;
+	}
+
+	public void fillLayer(Point pos, int newValue) {
+		if (!validPoint(pos))
+			return;
+		int startValue = getLayer(pos);
+		if (startValue != newValue)
+			fillLayer(pos, startValue, newValue);
+	}
+
+	public void fillLayer(Point startPos, int startValue, int newValue) {
+		new TaskList<Point, Boolean>((tl, pos) -> {
+			if (!validPoint(pos) || getLayer(pos) != startValue)
+				return Optional.of(false);
+
+			setLayer(pos, newValue);
+			for (Direction d : Direction.values())
+				tl.recurse(pos.applyDirection(d));
+
+			return Optional.of(true);
+		}).run(startPos);
+	}
+
+	public int iterateMap(CalcFunction func) {
+		int result = 0;
+		for (int x = 0; x < height(); x++)
+			for (int y = 0; y < width(); y++) {
+				Point p = new Point(x, y);
+				result = func.calc(p, getBase(p), getLayer(p), result);
+			}
+		return result;
 	}
 
 	public int sumLayer() {
-		int sum = 0;
-		for (int i = 0; i < height(); i++)
-			for (int j = 0; j < width(); j++)
-				sum += overlay[i][j];
-		return sum;
-	}
-
-	public int height() {
-		return baseLayer.length;
-	}
-
-	public int width() {
-		return baseLayer[0].length;
+		return iterateMap((_p, _b, layer, prev) -> layer + prev);
 	}
 
 	@Override
@@ -94,13 +140,15 @@ class Layered2DMap<E extends Layered2DMap.MapElement> {
 
 	public String toString(boolean includeOverlay) {
 		if (includeOverlay)
-			return toString((base, overlay) -> {
+			return toString((_p, base, overlay) -> {
 				if (overlay > 10 || overlay < 0)
 					return '#';
 				else if (overlay > 0)
 					return Integer.toString(overlay).charAt(0);
-				else
+				else if (base != null)
 					return base.getOutputChar();
+				else
+					return 'X';
 			});
 		else
 			return toString();
@@ -108,12 +156,18 @@ class Layered2DMap<E extends Layered2DMap.MapElement> {
 
 	public String toString(MergeFunction func) {
 		StringBuilder sb = new StringBuilder();
-		for (int i = 0; i < height(); i++) {
-			for (int j = 0; j < width(); j++) {
-				Point p = new Point(i, j);
-				sb.append(func.merge(getBasePoint(p), getOverlay(p)));
+		for (int x = 0; x < height(); x++) {
+			int l = 0;
+			for (int y = 0; y < width(); y++) {
+				Point p = new Point(x, y);
+				char c = func.merge(p, getBase(p), getLayer(p));
+				if (c > 0) {
+					sb.append(c);
+					l++;
+				}
 			}
-			sb.append('\n');
+			if (l > 0)
+				sb.append('\n');
 		}
 		return sb.toString();
 	}
@@ -125,7 +179,11 @@ class Layered2DMap<E extends Layered2DMap.MapElement> {
 	}
 
 	public interface MergeFunction {
-		char merge(MapElement base, int overlay);
+		char merge(Point pos, MapElement base, int overlay);
+	}
+
+	public interface CalcFunction {
+		int calc(Point pos, MapElement base, int overlay, int previous);
 	}
 
 	public enum Direction {

@@ -1,8 +1,7 @@
 package de.coeins.aoc2023;
 
 import java.util.Arrays;
-import java.util.HashMap;
-import java.util.Map;
+import java.util.Optional;
 
 class Day12 implements Day<Long> {
 	@Override
@@ -11,7 +10,7 @@ class Day12 implements Day<Long> {
 		for (String l : in) {
 			String[] parts = l.split(" ");
 			int[] clusters = Arrays.stream(parts[1].split(",")).mapToInt(Integer::parseInt).toArray();
-			long pos = posibilities(parts[0], clusters, new HashMap<>(), new State(0, 0, 0)); //, "");
+			long pos = new TaskList<>(new PossibilityCounter(parts[0], clusters)).run(new State(0, 0, 0));
 			log(l, pos);
 			sum += pos;
 		}
@@ -29,62 +28,65 @@ class Day12 implements Day<Long> {
 			int[] longClusters = new int[clusters.length * 5];
 			for (int i = 0; i < 5; i++)
 				System.arraycopy(clusters, 0, longClusters, clusters.length * i, clusters.length);
-			long pos = posibilities(longinput, longClusters, new HashMap<>(), new State(0, 0, 0)); //, "");
+			long pos = new TaskList<>(new PossibilityCounter(longinput, longClusters)).run(new State(0, 0, 0));
 			log(longinput, longClusters, pos);
 			sum += pos;
 		}
 		return sum;
 	}
 
-	private long posibilities(String line, int[] clusters, Map<State, Long> posibilitySpace, State s) {
-		if (s.linePos >= line.length()) {
-			if (s.clusterEl == clusters.length || s.clusterEl == clusters.length - 1 && s.running == clusters[s.clusterEl])
-				return 1;
-			else
-				return 0;
+	private static class PossibilityCounter implements TaskList.Processor<State, Long> {
+		final String line;
+		final int[] clusters;
+
+		private PossibilityCounter(String line, int[] clusters) {
+			this.line = line;
+			this.clusters = clusters;
 		}
 
-		switch (line.charAt(s.linePos)) {
-			case '.':
-				if (s.running == 0)
-					return posOrCached(line, clusters, posibilitySpace, s.linePos + 1, s.clusterEl, 0); //, result + '.');
-				if (s.running == clusters[s.clusterEl])
-					return posOrCached(line, clusters, posibilitySpace, s.linePos + 1, s.clusterEl + 1, 0); //, result + '.');
+		public Optional<Long> run(TaskList<State, Long> tl, State s) {
+			if (s.linePos >= line.length()) {
+				if (s.clusterEl == clusters.length || s.clusterEl == clusters.length - 1 && s.running == clusters[s.clusterEl])
+					return Optional.of(1L);
 				else
-					return 0;
-			case '#':
-				if (s.clusterEl >= clusters.length || s.running > clusters[s.clusterEl])
-					return 0;
-				return posOrCached(line, clusters, posibilitySpace, s.linePos + 1, s.clusterEl, s.running + 1); //, result + '#');
-			case '?':
-				if (s.clusterEl >= clusters.length && s.running > 0)
-					throw new RuntimeException("Invalid state");
+					return Optional.of(0L);
+			}
 
-				if (s.clusterEl >= clusters.length)
-					return posOrCached(line, clusters, posibilitySpace, s.linePos + 1, s.clusterEl, 0); //, result + '.');
+			switch (line.charAt(s.linePos)) {
+				case '.':
+					if (s.running == 0)
+						return tl.recurse(new State(s.linePos + 1, s.clusterEl, 0));
+					if (s.running == clusters[s.clusterEl])
+						return tl.recurse(new State(s.linePos + 1, s.clusterEl + 1, 0));
+					else
+						return Optional.of(0L);
+				case '#':
+					if (s.clusterEl >= clusters.length || s.running > clusters[s.clusterEl])
+						return Optional.of(0L);
+					return tl.recurse(new State(s.linePos + 1, s.clusterEl, s.running + 1));
+				case '?':
+					if (s.clusterEl >= clusters.length && s.running > 0)
+						throw new RuntimeException("Invalid state");
 
-				if (s.running == clusters[s.clusterEl])
-					return posOrCached(line, clusters, posibilitySpace, s.linePos + 1, s.clusterEl + 1, 0); //, result + '.');
-				if (s.running > 0)
-					return posOrCached(line, clusters, posibilitySpace, s.linePos + 1, s.clusterEl, s.running + 1); //, result + '#');
+					if (s.clusterEl >= clusters.length)
+						return tl.recurse(new State(s.linePos + 1, s.clusterEl, 0));
 
-				long a = posOrCached(line, clusters, posibilitySpace, s.linePos + 1, s.clusterEl, 0); //, result + '.');
-				long b = posOrCached(line, clusters, posibilitySpace, s.linePos + 1, s.clusterEl, 1); //, result + '#');
-				return a + b;
+					if (s.running == clusters[s.clusterEl])
+						return tl.recurse(new State(s.linePos + 1, s.clusterEl + 1, 0));
+					if (s.running > 0)
+						return tl.recurse(new State(s.linePos + 1, s.clusterEl, s.running + 1));
 
-			default:
-				throw new RuntimeException("Invalid character");
+					Optional<Long> a = tl.recurse(new State(s.linePos + 1, s.clusterEl, 0));
+					Optional<Long> b = tl.recurse(new State(s.linePos + 1, s.clusterEl, 1));
+					if (a.isEmpty() || b.isEmpty())
+						return Optional.empty();
+
+					return Optional.of(a.get() + b.get());
+
+				default:
+					throw new RuntimeException("Invalid character");
+			}
 		}
-	}
-
-	private long posOrCached(String line, int[] clusters, Map<State, Long> posibilitySpace, int linePos, int clusterEl, int running) {
-		State newS = new State(linePos, clusterEl, running);
-		if (posibilitySpace.containsKey(newS))
-			return posibilitySpace.get(newS);
-
-		long newPos = posibilities(line, clusters, posibilitySpace, newS);
-		posibilitySpace.put(newS, newPos);
-		return newPos;
 	}
 
 	record State(int linePos, int clusterEl, int running) {
