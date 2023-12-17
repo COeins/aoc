@@ -8,6 +8,8 @@ import java.util.Map;
 import java.util.Optional;
 
 class Layered2DMap<E extends Layered2DMap.MapElement> {
+	public static List<Direction> CARDINALS = List.of(Direction.N, Direction.E, Direction.S, Direction.W);
+	public static List<Direction> DIAGONALS = List.of(Direction.NE, Direction.SE, Direction.SW, Direction.NW);
 
 	final E[][] base;
 	final Map<Point, E> overrideLayer;
@@ -216,4 +218,21 @@ class Layered2DMap<E extends Layered2DMap.MapElement> {
 		}
 	}
 
+	public enum Digits implements MapElement {
+		ZREO, ONE, TWO, TREE, FOUR, FIVE, SIX, SEVEN, EIGHT, NINE;
+
+		public int getValue() {
+			return ordinal();
+		}
+
+		@Override
+		public char getParseChar() {
+			return (char) ('0' + getValue());
+		}
+
+		@Override
+		public char getOutputChar() {
+			return getParseChar();
+		}
+	}
 }

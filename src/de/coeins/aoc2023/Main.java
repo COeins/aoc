@@ -18,6 +18,7 @@ public class Main {
 
 		// only a single day
 		List<Integer> days = List.of(10, 12, 16);
+		//List<Integer> days = List.of(17);
 
 		// run both tasks
 		List<Integer> tasks = List.of(1, 2);

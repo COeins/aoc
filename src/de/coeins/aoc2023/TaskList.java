@@ -13,7 +13,7 @@ class TaskList<T, R> {
 
 	private int deph = 0;
 	private boolean recurse = true;
-	private int maxDepth;
+	private int maxDepth = Integer.MAX_VALUE;
 
 	TaskList(Processor<T, R> proc) {
 		this.tasks = new ArrayList<>();
@@ -25,16 +25,12 @@ class TaskList<T, R> {
 		if (results.containsKey(start))
 			return results.get(start);
 
-		maxDepth = Integer.MAX_VALUE;
-
 		if (!tasks.contains(start))
 			tasks.add(start);
 
 		int startPos = tasks.indexOf(start);
-		int j = 0;
 
 		do {
-			j++;
 			for (int i = startPos; i < tasks.size(); i++) {
 				deph = 0;
 				recurse = true;
@@ -43,13 +39,14 @@ class TaskList<T, R> {
 					runTask(t);
 				}
 			}
+			tasks.removeAll(results.keySet());
+			startPos = 0;
 		} while (!results.containsKey(start));
 
 		return results.get(start);
 	}
 
 	public Optional<R> recurse(T next) {
-		//int pos = tasks.indexOf(next);
 		if (results.containsKey(next))
 			return Optional.of(results.get(next));
 
@@ -73,8 +70,15 @@ class TaskList<T, R> {
 
 	private Optional<R> runTask(T task) {
 		Optional<R> res = proc.run(this, task);
-		res.ifPresent(r -> results.put(task, r));
+		if (res.isPresent()) {
+			results.put(task, res.get());
+		}
 		return res;
+	}
+
+	public TaskList<T, R> setMaxDepth(int deph) {
+		maxDepth = deph;
+		return this;
 	}
 
 	public interface Processor<T, R> {
