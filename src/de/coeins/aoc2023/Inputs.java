@@ -293,7 +293,7 @@ public class Inputs {
 			int day = 13;
 			days.put(day, new Day13());
 			solutionsTask1.put(day, new Integer[] { 405, 35538 });
-			solutionsTask2.put(day, new Integer[] { 400, -1 });
+			solutionsTask2.put(day, new Integer[] { 400, 30442 });
 			tasks.put(day, new String[] {
 					"#.##..##.\n" +
 							"..#.##.#.\n" +
@@ -368,9 +368,10 @@ public class Inputs {
 		{
 			int day = 17;
 			days.put(day, new Day17());
-			solutionsTask1.put(day, new Integer[] { 102, -1 });
-			solutionsTask2.put(day, new Integer[] { -1, -1 });
+			solutionsTask1.put(day, new Integer[] { 102, 1044 });
+			solutionsTask2.put(day, new Integer[] { 94, 1227 });
 			tasks.put(day, new String[] {
+
 					"2413432311323\n" +
 							"3215453535623\n" +
 							"3255245654254\n" +
@@ -388,6 +389,29 @@ public class Inputs {
 					LargeInputs.DAY17 });
 		} // 17
 
+		{
+			int day = 18;
+			days.put(day, new Day18());
+			solutionsTask1.put(day, new Long[] { 62L, 52035L });
+			solutionsTask2.put(day, new Long[] { 952408144115L, 60612092439765L });
+			tasks.put(day, new String[] {
+					"R 6 (#70c710)\n" +
+							"D 5 (#0dc571)\n" +
+							"L 2 (#5713f0)\n" +
+							"D 2 (#d2c081)\n" +
+							"R 2 (#59c680)\n" +
+							"D 2 (#411b91)\n" +
+							"L 5 (#8ceee2)\n" +
+							"U 2 (#caa173)\n" +
+							"L 1 (#1b58a2)\n" +
+							"U 2 (#caa171)\n" +
+							"R 2 (#7807d2)\n" +
+							"U 3 (#a77fa3)\n" +
+							"L 2 (#015232)\n" +
+							"U 2 (#7a21e3)",
+
+					LargeInputs.DAY18 });
+		} // 18
 
 		{
 			int day = 0;
