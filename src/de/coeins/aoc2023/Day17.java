@@ -26,7 +26,7 @@ class Day17 implements Day<Integer> {
 			if (m.pos.equals(end) && c.bestEnergy.get(m) <= minEnergy) {
 				m2.resetLayer();
 				c.bestPath.get(m).drawOnMap(m2);
-				log(m2.toString((p, b, l) -> l > 0 ? '·' : b.getOutputChar()));
+				log(m2.toString((p, b, l) -> l[0] > 0 ? '·' : b.getOutputChar()));
 			}
 		}
 		return minEnergy;
@@ -46,7 +46,7 @@ class Day17 implements Day<Integer> {
 			if (m.pos.equals(end) && c.bestEnergy.get(m) <= minEnergy) {
 				m2.resetLayer();
 				c.bestPath.get(m).drawOnMap(m2);
-				log(m2.toString((p, b, l) -> l > 0 ? '·' : b.getOutputChar()));
+				log(m2.toString((p, b, l) -> l[0] > 0 ? '·' : b.getOutputChar()));
 			}
 		}
 		return minEnergy;

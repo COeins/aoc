@@ -13,7 +13,7 @@ class Day16 implements Day<Integer> {
 	public Integer task1(String[] in) {
 		Layered2DMap<Mirrors> map = Layered2DMap.parseCharacters(in, 0, Mirrors.class);
 		new TaskList<>(new SendLight(map)).run(new LightRay(new Point(0, 0), E));
-		log(map.toString((_p, b, l) -> !b.equals(Mirrors.empty) || l < 1 ? b.getOutputChar() : '#'));
+		log(map.toString((_p, b, l) -> !b.equals(Mirrors.empty) || l[0] < 1 ? b.getOutputChar() : '#'));
 		return map.sumLayer();
 	}
 

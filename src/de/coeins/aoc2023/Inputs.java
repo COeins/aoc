@@ -441,6 +441,67 @@ public class Inputs {
 		} // 19
 
 		{
+			int day = 20;
+			days.put(day, new Day20());
+			solutionsTask1.put(day, new Long[] { 32000000L, 11687500L, 788081152L });
+			solutionsTask2.put(day, new Long[] { -1L, -1L });
+			tasks.put(day, new String[] {
+
+					//"broadcaster -> a,b\n%a -> b\n%b -> out",
+
+					"broadcaster -> a, b, c\n" +
+							"%a -> b\n" +
+							"%b -> c\n" +
+							"%c -> inv\n" +
+							"&inv -> a",
+					"broadcaster -> a\n" +
+							"%a -> inv, con\n" +
+							"&inv -> b\n" +
+							"%b -> con\n" +
+							"&con -> output",
+
+					LargeInputs.DAY20 });
+		} // 20
+
+		{
+			int day = 21;
+			days.put(day, new Day21());
+			solutionsTask1.put(day, new Long[] { 16L, 3617L });
+			solutionsTask2.put(day, new Long[] { 16733044L, 596857397104703L });
+			tasks.put(day, new String[] {
+					"...........\n" +
+							".....###.#.\n" +
+							".###.##..#.\n" +
+							"..#.#...#..\n" +
+							"....#.#....\n" +
+							".##..S####.\n" +
+							".##..#...#.\n" +
+							".......##..\n" +
+							".##.#.####.\n" +
+							".##..##.##.\n" +
+							"...........",
+
+					LargeInputs.DAY21 });
+		} // 21
+
+		{
+			int day = 22;
+			days.put(day, new Day22());
+			solutionsTask1.put(day, new Integer[] { 5, 395 });
+			solutionsTask2.put(day, new Integer[] { 7, 64714 });
+			tasks.put(day, new String[] {
+					"1,0,1~1,2,1\n" +
+							"0,0,2~2,0,2\n" +
+							"0,2,3~2,2,3\n" +
+							"0,0,4~0,2,4\n" +
+							"2,0,5~2,2,5\n" +
+							"0,1,6~2,1,6\n" +
+							"1,1,8~1,1,9",
+
+					LargeInputs.DAY22 });
+		} // 22
+
+		{
 			int day = 0;
 			days.put(day, new Day1());
 			solutionsTask1.put(day, new Integer[] { -1, -1 });

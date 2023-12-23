@@ -13,12 +13,12 @@ class Layered2DMap<E extends Layered2DMap.MapElement> {
 
 	final E[][] base;
 	final Map<Point, E> overrideLayer;
-	final int[][] layer;
+	final List<int[][]> layers;
 
 	Layered2DMap(E[][] base, int[][] layer) {
 		this.base = base;
 		this.overrideLayer = new HashMap<>();
-		this.layer = layer;
+		this.layers = new ArrayList<>();
 	}
 
 	public static <T extends Enum<T> & MapElement> Layered2DMap<T> parseCharacters(String[] in, int startLine, Class<T> elementType) {
@@ -79,25 +79,57 @@ class Layered2DMap<E extends Layered2DMap.MapElement> {
 		return found;
 	}
 
+	private void ensureLayer(int layer) {
+		while (layer >= layers.size())
+			layers.add(new int[height()][width()]);
+	}
+
 	public int getLayer(Point pos) {
-		return layer[pos.x][pos.y];
+		return getLayer(0, pos);
 	}
 
-	public int getLayer(Point pos, int defaultOverlay) {
+	public int getLayer(int layer, Point pos) {
+		ensureLayer(layer);
+		return layers.get(layer)[pos.x][pos.y];
+	}
+
+	public int getLayer(Point pos, int defaultValue) {
+		return getLayer(0, pos, defaultValue);
+	}
+
+	private int[] getAllLayers(Point p) {
+		int[] pointLayers = new int[layers.size()];
+		for (int l = 0; l < layers.size(); l++)
+			pointLayers[l] = layers.get(l)[p.x][p.y];
+
+		return pointLayers;
+	}
+
+	public int getLayer(int layer, Point pos, int defaultValue) {
 		if (validPoint(pos))
-			return getLayer(pos);
+			return getLayer(layer, pos);
 		else
-			return defaultOverlay;
+			return defaultValue;
 	}
 
-	public void setLayer(Point pos, int i) {
-		layer[pos.x][pos.y] = i;
+	public void setLayer(Point pos, int value) {
+		setLayer(0, pos, value);
+	}
+
+	public void setLayer(int layer, Point pos, int value) {
+		ensureLayer(layer);
+		layers.get(layer)[pos.x][pos.y] = value;
 	}
 
 	public void resetLayer() {
+		resetLayer(0);
+	}
+
+	public void resetLayer(int layer) {
+		ensureLayer(layer);
 		for (int x = 0; x < height(); x++)
 			for (int y = 0; y < width(); y++)
-				layer[x][y] = 0;
+				setLayer(layer, new Point(x, y), 0);
 	}
 
 	public void fillLayer(Point pos, int newValue) {
@@ -114,64 +146,57 @@ class Layered2DMap<E extends Layered2DMap.MapElement> {
 				return Optional.of(false);
 
 			setLayer(pos, newValue);
-			for (Direction d : Direction.values())
+			for (Direction d : CARDINALS)
 				tl.recurse(pos.applyDirection(d));
 
 			return Optional.of(true);
 		}).run(startPos);
 	}
 
-	public int iterateMap(CalcFunction func) {
-		int result = 0;
+	public <T> T iterateMap(CalcFunction<T> func, T start) {
+		T result = start;
 		for (int x = 0; x < height(); x++)
 			for (int y = 0; y < width(); y++) {
 				Point p = new Point(x, y);
-				result = func.calc(p, getBase(p), getLayer(p), result);
+				result = func.calc(p, getBase(p), getAllLayers(p), result);
 			}
 		return result;
 	}
 
 	public int sumLayer() {
-		return iterateMap((_p, _b, layer, prev) -> layer + prev);
+		return sumLayer(0);
+	}
+
+	public int sumLayer(int layer) {
+		return iterateMap((_p, _b, layers, prev) -> layers[layer] + prev, 0);
 	}
 
 	@Override
 	public String toString() {
-		return toString(true);
+		return toString(0);
 	}
 
-	public String toString(boolean includeOverlay) {
-		if (includeOverlay)
-			return toString((_p, base, overlay) -> {
-				if (overlay > 10 || overlay < 0)
-					return '#';
-				else if (overlay > 0)
-					return Integer.toString(overlay).charAt(0);
-				else if (base != null)
-					return base.getOutputChar();
-				else
-					return 'X';
-			});
-		else
-			return toString();
+	public String toString(int layer) {
+		return toString((_p, base, layers) -> {
+			int overlay = layer >= 0 ? layers[layer] : 0;
+			if (overlay > 10 || overlay < 0)
+				return '#';
+			else if (overlay > 0)
+				return Integer.toString(overlay).charAt(0);
+			else if (base != null)
+				return base.getOutputChar();
+			else
+				return ' ';
+		});
 	}
 
 	public String toString(MergeFunction func) {
-		StringBuilder sb = new StringBuilder();
-		for (int x = 0; x < height(); x++) {
-			int l = 0;
-			for (int y = 0; y < width(); y++) {
-				Point p = new Point(x, y);
-				char c = func.merge(p, getBase(p), getLayer(p));
-				if (c > 0) {
-					sb.append(c);
-					l++;
-				}
-			}
-			if (l > 0)
+		return iterateMap((pos, base, layers, sb) -> {
+			sb.append(func.merge(pos, base, layers));
+			if (pos.y == width() - 1)
 				sb.append('\n');
-		}
-		return sb.toString();
+			return sb;
+		}, new StringBuilder()).toString();
 	}
 
 	public interface MapElement {
@@ -181,11 +206,11 @@ class Layered2DMap<E extends Layered2DMap.MapElement> {
 	}
 
 	public interface MergeFunction {
-		char merge(Point pos, MapElement base, int overlay);
+		char merge(Point pos, MapElement base, int[] layers);
 	}
 
-	public interface CalcFunction {
-		int calc(Point pos, MapElement base, int overlay, int previous);
+	public interface CalcFunction<T> {
+		T calc(Point pos, MapElement base, int[] layers, T previous);
 	}
 
 	public enum Direction {
@@ -216,10 +241,14 @@ class Layered2DMap<E extends Layered2DMap.MapElement> {
 		Point applyDirection(Direction d) {
 			return new Point(x + d.dx, y + d.dy);
 		}
+
+		public int distance(Point c) {
+			return Math.abs(x - c.x) + Math.abs(y - c.y);
+		}
 	}
 
 	public enum Digits implements MapElement {
-		ZREO, ONE, TWO, TREE, FOUR, FIVE, SIX, SEVEN, EIGHT, NINE;
+		ZERO, ONE, TWO, THREE, FOUR, FIVE, SIX, SEVEN, EIGHT, NINE;
 
 		public int getValue() {
 			return ordinal();

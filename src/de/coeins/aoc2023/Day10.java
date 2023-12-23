@@ -92,8 +92,8 @@ class Day10 implements Day<Integer> {
 		// Finally, count inside area
 		int inside = map.getLayer(new Point(0, map.width() - 1)) == 2 ? 3 : 2;
 
-		log(map.toString((_p, b, l) -> l < 2 ? b.getOutputChar() : Integer.toString(l).charAt(0)));
-		return map.iterateMap((_p, _b, layer, prev) -> layer == inside ? prev + 1 : prev);
+		log(map.toString((_p, b, l) -> l[0] < 2 ? b.getOutputChar() : Integer.toString(l[0]).charAt(0)));
+		return map.iterateMap((_p, _b, layer, prev) -> layer[0] == inside ? prev + 1 : prev, 0);
 	}
 
 	enum Pipe implements Layered2DMap.MapElement {

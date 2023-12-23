@@ -14,10 +14,10 @@ public class Main {
 
 	public static void main(String[] args) {
 		// run all days
-		//List<Integer> days = List.of(1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18);
+		//List<Integer> days = List.of(1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 21, 22);
 
 		// only a single day
-		List<Integer> days = List.of(19);
+		List<Integer> days = List.of(22);
 
 		// run both tasks
 		List<Integer> tasks = List.of(1, 2);
@@ -26,7 +26,7 @@ public class Main {
 		int inputs = -1;
 
 		// 0: no task logging, 1: only log sample tasks; 2: log all tasks
-		int verbosity = 2;
+		int verbosity = 1;
 
 		int s = 0;
 		int e = 0;
