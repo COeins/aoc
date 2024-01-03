@@ -535,15 +535,42 @@ public class Inputs {
 		} // 23
 
 		{
-			int day = 0;
-			days.put(day, new Day1());
-			solutionsTask1.put(day, new Integer[] { -1, -1 });
+			int day = 24;
+			days.put(day, new Day24());
+			solutionsTask1.put(day, new Integer[] { 2, 15593 });
+			solutionsTask2.put(day, new Integer[] { 47, -1 });
+			tasks.put(day, new String[] {
+					"19, 13, 30 @ -2,  1, -2\n" +
+							"18, 19, 22 @ -1, -1, -2\n" +
+							"20, 25, 34 @ -2, -2, -4\n" +
+							"12, 31, 28 @ -1, -2, -1\n" +
+							"20, 19, 15 @  1, -5, -3",
+
+					LargeInputs.DAY24 });
+		} // 24
+
+		{
+			int day = 25;
+			days.put(day, new Day25());
+			solutionsTask1.put(day, new Integer[] { 54, 600225 });
 			solutionsTask2.put(day, new Integer[] { -1, -1 });
 			tasks.put(day, new String[] {
-					"XXX",
+					"jqt: rhn xhk nvd\n" +
+							"rsh: frs pzl lsr\n" +
+							"xhk: hfx\n" +
+							"cmg: qnr nvd lhk bvb\n" +
+							"rhn: xhk bvb hfx\n" +
+							"bvb: xhk hfx\n" +
+							"pzl: lsr hfx nvd\n" +
+							"qnr: nvd\n" +
+							"ntq: jqt hfx bvb xhk\n" +
+							"nvd: lhk\n" +
+							"lsr: lhk\n" +
+							"rzs: qnr cmg lsr rsh\n" +
+							"frs: qnr lhk lsr",
 
 					LargeInputs.DAY25 });
-		} // X
+		} // 25
 
 	}
 }

@@ -177,6 +177,7 @@ class Layered2DMap<E extends Layered2DMap.MapElement> {
 	}
 
 	public String toString(int layer) {
+		ensureLayer(layer);
 		return toString((_p, base, layers) -> {
 			int overlay = layer >= 0 ? layers[layer] : 0;
 			if (overlay > 10 || overlay < 0)
