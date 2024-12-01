@@ -59,7 +59,7 @@ public class Day8 implements Day<Long> {
 			log("Simple case detected. Calculating LCM...");
 			long lcm = ghosts[0].loopLen;
 			for (int i = 1; i < ghosts.length; i++)
-				lcm = lcm(ghosts[i].loopLen, lcm);
+				lcm = MathUtils.lcm(ghosts[i].loopLen, lcm);
 			return lcm;
 		} else {
 			log("General case detected. Simulating movements...");
@@ -75,15 +75,6 @@ public class Day8 implements Day<Long> {
 				testpos = ghosts[0].calculateNextEnds();
 			}
 		}
-	}
-
-	long lcm(long a, long b) {
-		return a / gcd(a, b) * b;
-
-	}
-
-	long gcd(long a, long b) {
-		return b == 0 ? a : gcd(b, a % b);
 	}
 
 	class Ghost {

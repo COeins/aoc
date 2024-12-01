@@ -444,7 +444,7 @@ public class Inputs {
 			int day = 20;
 			days.put(day, new Day20());
 			solutionsTask1.put(day, new Long[] { 32000000L, 11687500L, 788081152L });
-			solutionsTask2.put(day, new Long[] { -1L, -1L });
+			solutionsTask2.put(day, new Long[] { -1L, -1L, 224602011344203L });
 			tasks.put(day, new String[] {
 
 					//"broadcaster -> a,b\n%a -> b\n%b -> out",
