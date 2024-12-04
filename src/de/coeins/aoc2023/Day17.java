@@ -91,7 +91,7 @@ class Day17 implements Day<Integer> {
 				Point nextPos = move.pos.applyDirection(d);
 				if (!map.validPoint(nextPos))
 					continue;
-				if (d == move.dir.inverse)
+				if (d == move.dir.inverse())
 					continue;
 				if (move.steps < minMoves && d != move.dir && CARDINALS.contains(move.dir))
 					continue;

@@ -7,7 +7,7 @@ import java.util.List;
 import java.util.Map;
 import java.util.Optional;
 
-class Layered2DMap<E extends Layered2DMap.MapElement> {
+public class Layered2DMap<E extends Layered2DMap.MapElement> {
 	public static List<Direction> CARDINALS = List.of(Direction.N, Direction.E, Direction.S, Direction.W);
 	public static List<Direction> DIAGONALS = List.of(Direction.NE, Direction.SE, Direction.SW, Direction.NW);
 
@@ -215,32 +215,64 @@ class Layered2DMap<E extends Layered2DMap.MapElement> {
 	}
 
 	public enum Direction {
-		N(-1, 0, null),
-		S(1, 0, N),
-		E(0, 1, null),
-		W(0, -1, E),
+		N(-1, 0),
+		S(1, 0),
+		E(0, 1),
+		W(0, -1),
 
-		NE(-1, 1, null),
-		SW(1, -1, NE),
-		SE(1, 1, null),
-		NW(-1, -1, SE);
+		NE(-1, 1),
+		SW(1, -1),
+		SE(1, 1),
+		NW(-1, -1);
 
 		final int dx;
 		final int dy;
-		Direction inverse;
 
-		Direction(int dx, int dy, Direction inv) {
+		Direction(int dx, int dy) {
 			this.dx = dx;
 			this.dy = dy;
-			this.inverse = inv;
-			if (inv != null)
-				inv.inverse = this;
+		}
+
+		public Direction rotate90() {
+			return switch (this) {
+				case N -> E;
+				case E -> S;
+				case S -> W;
+				case W -> N;
+
+				case NE -> SE;
+				case SE -> SW;
+				case SW -> NW;
+				case NW -> NE;
+			};
+		}
+
+		public Direction rotate90(int steps) {
+			if (steps < 0)
+				throw new RuntimeException("No negative steps");
+			else if (steps == 0)
+				return this;
+			else
+				return rotate90().rotate90(steps - 1);
+		}
+
+		public Direction inverse() {
+			return rotate90(2);
 		}
 	}
 
 	public record Point(int x, int y) {
-		Point applyDirection(Direction d) {
+		public Point applyDirection(Direction d) {
 			return new Point(x + d.dx, y + d.dy);
+		}
+
+		public Point applyDirection(Direction d, int steps) {
+			if (steps < 0)
+				throw new RuntimeException("No negative steps");
+			else if (steps == 0)
+				return this;
+			else
+				return applyDirection(d).applyDirection(d, steps - 1);
 		}
 
 		public int distance(Point c) {

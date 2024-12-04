@@ -13,7 +13,7 @@ class Day10 implements Day<Integer> {
 		for (Direction d : Direction.values()) {
 			Point newPos = start.applyDirection(d);
 			Pipe pipe = map.getBase(newPos, Pipe.NONE);
-			if (pipe.d1 == d.inverse || pipe.d2 == d.inverse) {
+			if (pipe.d1 == d.inverse() || pipe.d2 == d.inverse()) {
 				nextPos = newPos;
 				incoming = d;
 				break;
@@ -30,7 +30,7 @@ class Day10 implements Day<Integer> {
 				log(map);
 				return step / 2;
 			}
-			Direction newDirection = newPipe.d1 == incoming.inverse ? newPipe.d2 : newPipe.d1;
+			Direction newDirection = newPipe.d1 == incoming.inverse() ? newPipe.d2 : newPipe.d1;
 			nextPos = nextPos.applyDirection(newDirection);
 			incoming = newDirection;
 			step++;
@@ -46,7 +46,7 @@ class Day10 implements Day<Integer> {
 		for (Direction d : Direction.values()) {
 			Point newPos = start.applyDirection(d);
 			Pipe pipe = map.getBase(newPos, Pipe.NONE);
-			if (pipe.d1 == d.inverse || pipe.d2 == d.inverse) {
+			if (pipe.d1 == d.inverse() || pipe.d2 == d.inverse()) {
 				firstPos = newPos;
 				firstIncoming = d;
 				break;
@@ -63,7 +63,7 @@ class Day10 implements Day<Integer> {
 			Pipe newPipe = map.getBase(nextPos);
 			if (newPipe == Pipe.START)
 				break;
-			Direction newDirection = newPipe.d1 == incomming.inverse ? newPipe.d2 : newPipe.d1;
+			Direction newDirection = newPipe.d1 == incomming.inverse() ? newPipe.d2 : newPipe.d1;
 			nextPos = nextPos.applyDirection(newDirection);
 			incomming = newDirection;
 		}
@@ -75,8 +75,8 @@ class Day10 implements Day<Integer> {
 			Pipe newPipe = map.getBase(nextPos);
 			if (newPipe == Pipe.START)
 				break;
-			Direction newDirection = newPipe.d1 == incomming.inverse ? newPipe.d2 : newPipe.d1;
-			int reverse = newPipe.d1 != incomming.inverse ? 1 : 0;
+			Direction newDirection = newPipe.d1 == incomming.inverse() ? newPipe.d2 : newPipe.d1;
+			int reverse = newPipe.d1 != incomming.inverse() ? 1 : 0;
 			final Point fillPos = nextPos;
 			for (Direction d : newPipe.area1) {
 				if (map.getLayer(nextPos.applyDirection(d), -1) == 0)
