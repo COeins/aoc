@@ -18,12 +18,25 @@ class Day7 implements de.coeins.aoc2023.Day<Long> {
 			long[] numbers = new long[split.length - 1];
 			for (int s = 1; s < split.length; s++)
 				numbers[s - 1] = Long.parseLong(split[s]);
-			sum += testOperations(result, numbers, ops);
+			// sum += testOperationsOrig(result, numbers, ops);
+			if (testOperationsFast(result, numbers, ops, numbers[0], 1))
+				sum += result;
 		}
 		return sum;
 	}
 
-	private long testOperations(long result, long[] numbers, int ops) {
+	private boolean testOperationsFast(long result, long[] numbers, int ops, long prev, int pos) {
+		if (pos >= numbers.length)
+			return prev == result;
+
+		return prev <= result
+				&& (testOperationsFast(result, numbers, ops, prev + numbers[pos], pos + 1)
+				|| testOperationsFast(result, numbers, ops, prev * numbers[pos], pos + 1)
+				|| ops > 2 && testOperationsFast(result, numbers, ops,
+				((long) (prev * Math.pow(10, numbers[pos] < 10 ? 1 : numbers[pos] < 100 ? 2 : 3))) + numbers[pos], pos + 1));
+	}
+
+	private long testOperationsOrig(long result, long[] numbers, int ops) {
 		options:
 		for (int i = 0; i < Math.pow(ops, (numbers.length - 1)); i++) {
 			long test = numbers[0];
@@ -38,7 +51,8 @@ class Day7 implements de.coeins.aoc2023.Day<Long> {
 					test *= numbers[j];
 				} else if (op == 2) {
 					memo.append(" || ").append(numbers[j]);
-					test = ((long) (test * Math.pow(10, ("" + numbers[j]).length()))) + numbers[j];
+					int shift = numbers[j] < 10 ? 1 : numbers[j] < 100 ? 2 : 3;
+					test = ((long) (test * Math.pow(10, shift))) + numbers[j];
 				}
 				if (test > result)
 					continue options;

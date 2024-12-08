@@ -44,6 +44,10 @@ public class Layered2DMap<E extends Layered2DMap.MapElement> {
 		return parseCharacters(in, startLine, Digits.class);
 	}
 
+	public static Layered2DMap<AlphaNum> parseAlphaNum(String[] in, int startLine) {
+		return parseCharacters(in, startLine, AlphaNum.class);
+	}
+
 	public int height() {
 		return base.length;
 	}
@@ -290,6 +294,27 @@ public class Layered2DMap<E extends Layered2DMap.MapElement> {
 		@Override
 		public char getParseChar() {
 			return (char) ('0' + getValue());
+		}
+
+		@Override
+		public char getOutputChar() {
+			return getParseChar();
+		}
+	}
+
+	public enum AlphaNum implements MapElement {
+		ZERO, ONE, TWO, THREE, FOUR, FIVE, SIX, SEVEN, EIGHT, NINE, EMPTY,
+		A, B, C, D, E, F, G, H, I, J, K, L, M, N, O, P, Q, R, S, T, U, V, W, X, Y, Z,
+		a, b, c, d, e, f, g, h, i, j, k, l, m, n, o, p, q, r, s, t, u, v, w, x, y, z;
+
+		@Override
+		public char getParseChar() {
+			int ord = ordinal();
+			if (ord < 10)
+				return (char) ('0' + ord);
+			if (ord == 10)
+				return '.';
+			return name().charAt(0);
 		}
 
 		@Override

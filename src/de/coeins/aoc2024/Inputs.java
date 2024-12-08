@@ -133,6 +133,25 @@ public class Inputs {
 							"292: 11 6 16 20\n",
 					LargeInputs.DAY7 });
 		} // 7
+		{
+			days.put(8, new Day8());
+			solutionsTask1.put(8, new Integer[] { 14, 259 });
+			solutionsTask2.put(8, new Integer[] { 34, 927 });
+			tasks.put(8, new String[] {
+					"............\n" +
+							"........0...\n" +
+							".....0......\n" +
+							".......0....\n" +
+							"....0.......\n" +
+							"......A.....\n" +
+							"............\n" +
+							"............\n" +
+							"........A...\n" +
+							".........A..\n" +
+							"............\n" +
+							"............",
+					LargeInputs.DAY8 });
+		} // 8
 
 	}
 }
