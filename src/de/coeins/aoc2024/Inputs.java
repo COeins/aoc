@@ -152,6 +152,35 @@ public class Inputs {
 							"............",
 					LargeInputs.DAY8 });
 		} // 8
+		{
+			days.put(9, new Day9());
+			solutionsTask1.put(9, new Long[] { 1928L, 6310675819476L });
+			solutionsTask2.put(9, new Long[] { 2858L, 6335972980679L });
+			tasks.put(9, new String[] {
+					"2333133121414131402",
+					LargeInputs.DAY9 });
+		} // 9
+		{
+			days.put(10, new Day10());
+			solutionsTask1.put(10, new Integer[] { 2, 36, 644 });
+			solutionsTask2.put(10, new Integer[] { 227, 81, 1366 });
+			tasks.put(10, new String[] {
+					"012345\n" +
+							"123456\n" +
+							"234567\n" +
+							"345678\n" +
+							"416789\n" +
+							"567891",
+					"89010123\n" +
+							"78121874\n" +
+							"87430965\n" +
+							"96549874\n" +
+							"45678903\n" +
+							"32019012\n" +
+							"01329801\n" +
+							"10456732",
+					LargeInputs.DAY10 });
+		} // 10
 
 	}
 }

@@ -6,7 +6,9 @@ import java.util.List;
 import java.util.Map;
 
 import de.coeins.aoc2023.Layered2DMap;
-import de.coeins.aoc2023.Layered2DMap.*;
+import de.coeins.aoc2023.Layered2DMap.AlphaNum;
+import de.coeins.aoc2023.Layered2DMap.MapElement;
+import de.coeins.aoc2023.Layered2DMap.Point;
 
 class Day8 implements de.coeins.aoc2023.Day<Integer> {
 	@Override
