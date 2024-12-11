@@ -181,6 +181,14 @@ public class Inputs {
 							"10456732",
 					LargeInputs.DAY10 });
 		} // 10
+		{
+			days.put(11, new Day11());
+			solutionsTask1.put(11, new Long[] { 55312L, 217443L });
+			solutionsTask2.put(11, new Long[] { 65601038650482L, 257246536026785L });
+			tasks.put(11, new String[] {
+					"125 17",
+					LargeInputs.DAY11 });
+		} // 11
 
 	}
 }
