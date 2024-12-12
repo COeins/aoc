@@ -141,12 +141,12 @@ public class Layered2DMap<E extends Layered2DMap.MapElement> {
 			return;
 		int startValue = getLayer(pos);
 		if (startValue != newValue)
-			fillLayer(pos, startValue, newValue);
+			fillLayer(pos, newValue, (_p, _b, layers) -> layers[0] == startValue);
 	}
 
-	public void fillLayer(Point startPos, int startValue, int newValue) {
+	public void fillLayer(Point startPos, int newValue, FillRule rule) {
 		new TaskList<Point, Boolean>((tl, pos) -> {
-			if (!validPoint(pos) || getLayer(pos) != startValue)
+			if (!validPoint(pos) || !rule.fill(pos, getBase(pos), getAllLayers(pos)))
 				return Optional.of(false);
 
 			setLayer(pos, newValue);
@@ -184,10 +184,10 @@ public class Layered2DMap<E extends Layered2DMap.MapElement> {
 		ensureLayer(layer);
 		return toString((_p, base, layers) -> {
 			int overlay = layer >= 0 ? layers[layer] : 0;
-			if (overlay > 10 || overlay < 0)
+			if (overlay > 9 || overlay < 0)
 				return '#';
 			else if (overlay > 0)
-				return Integer.toString(overlay).charAt(0);
+				return (char) ('0' + overlay);
 			else if (base != null)
 				return base.getOutputChar();
 			else
@@ -216,6 +216,10 @@ public class Layered2DMap<E extends Layered2DMap.MapElement> {
 
 	public interface CalcFunction<T> {
 		T calc(Point pos, MapElement base, int[] layers, T previous);
+	}
+
+	public interface FillRule {
+		boolean fill(Point pos, MapElement base, int[] layers);
 	}
 
 	public enum Direction {

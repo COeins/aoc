@@ -189,6 +189,38 @@ public class Inputs {
 					"125 17",
 					LargeInputs.DAY11 });
 		} // 11
+		{
+			days.put(12, new Day12());
+			solutionsTask1.put(12, new Integer[] { 140, 692, 1184, 1930, 1415378 });
+			solutionsTask2.put(12, new Integer[] { 80, 236, 368, 1206, 862714 });
+			tasks.put(12, new String[] {
+					"AAAA\n" +
+							"BBCD\n" +
+							"BBCC\n" +
+							"EEEC",
+					"EEEEE\n" +
+							"EXXXX\n" +
+							"EEEEE\n" +
+							"EXXXX\n" +
+							"EEEEE\n",
+					"AAAAAA\n" +
+							"AAABBA\n" +
+							"AAABBA\n" +
+							"ABBAAA\n" +
+							"ABBAAA\n" +
+							"AAAAAA",
+					"RRRRIICCFF\n" +
+							"RRRRIICCCF\n" +
+							"VVRRRCCFFF\n" +
+							"VVRCCCJFFF\n" +
+							"VVVVCJJCFE\n" +
+							"VVIVCCJJEE\n" +
+							"VVIIICJJEE\n" +
+							"MIIIIIJJEE\n" +
+							"MIIISIJEEE\n" +
+							"MMMISSJEEE",
+					LargeInputs.DAY12 });
+		} // 12
 
 	}
 }
