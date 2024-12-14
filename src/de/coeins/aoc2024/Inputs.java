@@ -221,6 +221,47 @@ public class Inputs {
 							"MMMISSJEEE",
 					LargeInputs.DAY12 });
 		} // 12
+		{
+			days.put(13, new Day13());
+			solutionsTask1.put(13, new Long[] { 480L, 36954L });
+			solutionsTask2.put(13, new Long[] { 875318608908L, 79352015273424L });
+			tasks.put(13, new String[] {
+					"Button A: X+94, Y+34\n" +
+							"Button B: X+22, Y+67\n" +
+							"Prize: X=8400, Y=5400\n" +
+							"\n" +
+							"Button A: X+26, Y+66\n" +
+							"Button B: X+67, Y+21\n" +
+							"Prize: X=12748, Y=12176\n" +
+							"\n" +
+							"Button A: X+17, Y+86\n" +
+							"Button B: X+84, Y+37\n" +
+							"Prize: X=7870, Y=6450\n" +
+							"\n" +
+							"Button A: X+69, Y+23\n" +
+							"Button B: X+27, Y+71\n" +
+							"Prize: X=18641, Y=10279",
+					LargeInputs.DAY13 });
+		} // 13
+		{
+			days.put(14, new Day14());
+			solutionsTask1.put(14, new Integer[] { 12, 226548000 });
+			solutionsTask2.put(14, new Integer[] { 0, 7753 });
+			tasks.put(14, new String[] {
+					"p=0,4 v=3,-3\n" +
+							"p=6,3 v=-1,-3\n" +
+							"p=10,3 v=-1,2\n" +
+							"p=2,0 v=2,-1\n" +
+							"p=0,0 v=1,3\n" +
+							"p=3,0 v=-2,-2\n" +
+							"p=7,6 v=-1,-3\n" +
+							"p=3,0 v=-1,-2\n" +
+							"p=9,3 v=2,3\n" +
+							"p=7,3 v=-1,2\n" +
+							"p=2,4 v=2,-3\n" +
+							"p=9,5 v=-3,-3",
+					LargeInputs.DAY14 });
+		} // 14
 
 	}
 }
