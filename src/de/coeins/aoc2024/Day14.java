@@ -39,7 +39,7 @@ class Day14 implements de.coeins.aoc2023.Day<Integer> {
 				return i;
 			}
 		}
-		log ("Nothing interesting found :(");
+		log("Nothing interesting found :(");
 		return 0;
 	}
 
@@ -53,7 +53,6 @@ class Day14 implements de.coeins.aoc2023.Day<Integer> {
 
 	private List<Robot> step(List<Robot> robots, int rounds, int maxX, int maxY) {
 		List<Robot> newRobots = new ArrayList<>(robots.size());
-		int[][] quadrants = new int[2][2];
 		for (Robot r : robots) {
 			int newX = MathUtils.mod(r.x + rounds * r.dx, maxX);
 			int newY = MathUtils.mod(r.y + rounds * r.dy, maxY);

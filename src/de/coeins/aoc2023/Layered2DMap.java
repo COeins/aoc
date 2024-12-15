@@ -15,7 +15,7 @@ public class Layered2DMap<E extends Layered2DMap.MapElement> {
 	final Map<Point, E> overrideLayer;
 	final List<int[][]> layers;
 
-	Layered2DMap(E[][] base, int[][] layer) {
+	public Layered2DMap(E[][] base) {
 		this.base = base;
 		this.overrideLayer = new HashMap<>();
 		this.layers = new ArrayList<>();
@@ -23,9 +23,15 @@ public class Layered2DMap<E extends Layered2DMap.MapElement> {
 
 	public static <T extends Enum<T> & MapElement> Layered2DMap<T> parseCharacters(String[] in, int startLine, Class<T> elementType) {
 		T[] elements = elementType.getEnumConstants();
+		int endLine = in.length;
+		for (int l = startLine; l < endLine; l++)
+			if (in[l].isEmpty()) {
+				endLine = l;
+				break;
+			}
 		@SuppressWarnings("unchecked")
-		T[][] base = (T[][]) Array.newInstance(elementType, in.length - startLine, in[startLine].length());
-		for (int x = 0; x < in.length - startLine; x++) {
+		T[][] base = (T[][]) Array.newInstance(elementType, endLine - startLine, in[startLine].length());
+		for (int x = 0; x < endLine - startLine; x++) {
 			nectcol:
 			for (int y = 0; y < in[startLine].length(); y++) {
 				char c = in[x - startLine].charAt(y);
@@ -37,7 +43,7 @@ public class Layered2DMap<E extends Layered2DMap.MapElement> {
 				throw new RuntimeException("Invalid character at " + x + ", " + y + ": " + c);
 			}
 		}
-		return new Layered2DMap<>(base, new int[base.length][base[0].length]);
+		return new Layered2DMap<>(base);
 	}
 
 	public static Layered2DMap<Digits> parseDigits(String[] in, int startLine) {
@@ -233,8 +239,8 @@ public class Layered2DMap<E extends Layered2DMap.MapElement> {
 		SE(1, 1),
 		NW(-1, -1);
 
-		final int dx;
-		final int dy;
+		public final int dx;
+		public final int dy;
 
 		Direction(int dx, int dy) {
 			this.dx = dx;
