@@ -6,19 +6,24 @@ import java.util.List;
 import java.util.Map;
 import java.util.Optional;
 
-class TaskList<T, R> {
+public class TaskList<T, R> {
 	private final List<T> tasks;
 	private final Map<T, R> results;
 	private final Processor<T, R> proc;
 
 	private int deph = 0;
 	private boolean recurse = true;
-	private int maxDepth = Integer.MAX_VALUE;
+	private int maxDepth;
 
 	TaskList(Processor<T, R> proc) {
+		this(proc, Integer.MAX_VALUE);
+	}
+
+	TaskList(Processor<T, R> proc, int maxDepth) {
 		this.tasks = new ArrayList<>();
 		this.results = new HashMap<>();
 		this.proc = proc;
+		this.maxDepth = maxDepth;
 	}
 
 	public R run(T start) {

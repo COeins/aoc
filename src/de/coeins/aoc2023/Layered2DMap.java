@@ -261,9 +261,9 @@ public class Layered2DMap<E extends Layered2DMap.MapElement> {
 			};
 		}
 
-		public Direction rotate90(int steps) {
+ 		public Direction rotate90(int steps) {
 			if (steps < 0)
-				throw new RuntimeException("No negative steps");
+				return rotate90(steps + 4);
 			else if (steps == 0)
 				return this;
 			else
