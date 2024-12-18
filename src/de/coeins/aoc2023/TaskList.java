@@ -15,7 +15,7 @@ public class TaskList<T, R> {
 	private boolean recurse = true;
 	private int maxDepth;
 
-	TaskList(Processor<T, R> proc) {
+	public TaskList(Processor<T, R> proc) {
 		this(proc, Integer.MAX_VALUE);
 	}
 

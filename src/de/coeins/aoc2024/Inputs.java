@@ -348,6 +348,55 @@ public class Inputs {
 							"#################",
 					LargeInputs.DAY16 });
 		} // 16
+		{
+			days.put(17, new Day17());
+			solutionsTask1.put(17, new String[] { "4,6,3,5,6,3,5,2,1,0", "5,7,3,0", "3,6,7,0,5,7,3,1,4" });
+			solutionsTask2.put(17, new String[] { "", "117440", "164278496489149" });
+			tasks.put(17, new String[] {
+					"Register A: 729\n" +
+							"Register B: 0\n" +
+							"Register C: 0\n" +
+							"\n" +
+							"Program: 0,1,5,4,3,0",
+					"Register A: 2024\n" +
+							"Register B: 0\n" +
+							"Register C: 0\n" +
+							"\n" +
+							"Program: 0,3,5,4,3,0",
+					LargeInputs.DAY17 });
+		} // 17
+		{
+			days.put(18, new Day18());
+			solutionsTask1.put(18, new Integer[] { 22, 252 });
+			solutionsTask2.put(18, new Integer[] { 20, 3034 });
+			tasks.put(18, new String[] {
+					"5,4\n" +
+							"4,2\n" +
+							"4,5\n" +
+							"3,0\n" +
+							"2,1\n" +
+							"6,3\n" +
+							"2,4\n" +
+							"1,5\n" +
+							"0,6\n" +
+							"3,3\n" +
+							"2,6\n" +
+							"5,1\n" +
+							"1,2\n" +
+							"5,5\n" +
+							"2,5\n" +
+							"6,5\n" +
+							"1,4\n" +
+							"0,4\n" +
+							"6,4\n" +
+							"1,1\n" +
+							"6,1\n" +
+							"1,0\n" +
+							"0,5\n" +
+							"1,6\n" +
+							"2,0",
+					LargeInputs.DAY18 });
+		} // 18
 
 	}
 }
