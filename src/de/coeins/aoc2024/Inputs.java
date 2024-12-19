@@ -397,6 +397,23 @@ public class Inputs {
 							"2,0",
 					LargeInputs.DAY18 });
 		} // 18
+		{
+			days.put(19, new Day19());
+			solutionsTask1.put(19, new Long[] { 6L, 228L });
+			solutionsTask2.put(19, new Long[] { 16L, 584553405070389L });
+			tasks.put(19, new String[] {
+					"r, wr, b, g, bwu, rb, gb, br\n" +
+							"\n" +
+							"brwrr\n" +
+							"bggr\n" +
+							"gbbr\n" +
+							"rrbgbr\n" +
+							"ubwu\n" +
+							"bwurrg\n" +
+							"brgr\n" +
+							"bbrgwb",
+					LargeInputs.DAY19 });
+		} // 19
 
 	}
 }
