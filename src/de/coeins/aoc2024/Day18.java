@@ -1,8 +1,6 @@
 package de.coeins.aoc2024;
 
 import java.util.Arrays;
-import java.util.HashSet;
-import java.util.Set;
 
 import de.coeins.aoc2023.Layered2DMap;
 import de.coeins.aoc2023.Layered2DMap.Direction;
@@ -21,10 +19,10 @@ class Day18 implements de.coeins.aoc2023.Day<Integer> {
 			map.setLayer(new Point(s[1], s[0]), 1);
 		}
 
-		calculateDistances(map);
+		int dist = map.calculateDistance(new Point(0,0), end, (p, b, l) -> l[0] < 1, 1);
 		drawPath(map, end);
 		log(map.toString((pos, base, layers) -> layers[0] > 0 ? '▒' : layers[2] > 0 ? '·' : ' '));
-		return map.getLayer(1, end);
+		return dist;
 	}
 
 	@Override
@@ -40,14 +38,13 @@ class Day18 implements de.coeins.aoc2023.Day<Integer> {
 			if (block < count)
 				continue;
 			map.resetLayer(1);
-			calculateDistances(map);
-			int steps = map.getLayer(1, end);
+			int steps = map.calculateDistance(new Point(0, 0), end, (p, b, l) -> l[0] < 1, 1);
 			if (steps != lastSteps) {
-				log("After", block, "block, distance is", steps);
+				log("After", block, "blocks, distance is", steps);
 				drawPath(map, end);
 				log(map.toString((pos, base, layers) -> layers[0] > 0 ? '▒' : layers[2] > 0 ? '·' : ' '));
 
-				if (steps == 0) {
+				if (steps == -1) {
 					log(in[block]);
 					return block;
 				}
@@ -55,26 +52,6 @@ class Day18 implements de.coeins.aoc2023.Day<Integer> {
 			}
 		}
 		return -1;
-	}
-
-	void calculateDistances(Layered2DMap<MapElement> map) {
-		Set<Point> considering = new HashSet<>();
-		considering.add(new Point(0, 0));
-		while (!considering.isEmpty()) {
-			Point pos = considering.iterator().next();
-			considering.remove(pos);
-			int steps = map.getLayer(1, pos);
-			for (Direction d : Layered2DMap.CARDINALS) {
-				Point next = pos.applyDirection(d);
-				if (map.getLayer(0, next, 1) > 0)
-					continue;
-				int nextSteps = map.getLayer(1, next);
-				if (nextSteps > 0 && nextSteps <= steps + 1)
-					continue;
-				map.setLayer(1, next, steps + 1);
-				considering.add(next);
-			}
-		}
 	}
 
 	void drawPath(Layered2DMap<MapElement> map, Point end) {

@@ -3,9 +3,11 @@ package de.coeins.aoc2023;
 import java.lang.reflect.Array;
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.HashSet;
 import java.util.List;
 import java.util.Map;
 import java.util.Optional;
+import java.util.Set;
 
 public class Layered2DMap<E extends Layered2DMap.MapElement> {
 	public static List<Direction> CARDINALS = List.of(Direction.N, Direction.E, Direction.S, Direction.W);
@@ -157,9 +159,9 @@ public class Layered2DMap<E extends Layered2DMap.MapElement> {
 			fillLayer(pos, newValue, (_p, _b, layers) -> layers[0] == startValue);
 	}
 
-	public void fillLayer(Point startPos, int newValue, FillRule rule) {
+	public void fillLayer(Point startPos, int newValue, MapRule rule) {
 		new TaskList<Point, Boolean>((tl, pos) -> {
-			if (!validPoint(pos) || !rule.fill(pos, getBase(pos), getAllLayers(pos)))
+			if (!validPoint(pos) || !rule.apply(pos, getBase(pos), getAllLayers(pos)))
 				return Optional.of(false);
 
 			setLayer(pos, newValue);
@@ -168,6 +170,27 @@ public class Layered2DMap<E extends Layered2DMap.MapElement> {
 
 			return Optional.of(true);
 		}).run(startPos);
+	}
+
+	public int calculateDistance(Point start, Point end, MapRule rule, int layer) {
+		Set<Point> considering = new HashSet<>();
+		considering.add(start);
+		while (!considering.isEmpty()) {
+			Point pos = considering.iterator().next();
+			considering.remove(pos);
+			int steps = getLayer(layer, pos);
+			for (Direction d : Layered2DMap.CARDINALS) {
+				Point next = pos.applyDirection(d);
+				if (!validPoint(next) || next.equals(start) || !rule.apply(next, getBase(next), getAllLayers(next)))
+					continue;
+				int nextSteps = getLayer(layer, next);
+				if (nextSteps > 0 && nextSteps <= steps + 1)
+					continue;
+				setLayer(layer, next, steps + 1);
+				considering.add(next);
+			}
+		}
+		return getLayer(layer, end) > 0 ? getLayer(layer, end) : -1;
 	}
 
 	public <T> T iterateMap(CalcFunction<T> func, T start) {
@@ -231,8 +254,8 @@ public class Layered2DMap<E extends Layered2DMap.MapElement> {
 		T calc(Point pos, MapElement base, int[] layers, T previous);
 	}
 
-	public interface FillRule {
-		boolean fill(Point pos, MapElement base, int[] layers);
+	public interface MapRule {
+		boolean apply(Point pos, MapElement base, int[] layers);
 	}
 
 	public enum Direction {
