@@ -7,6 +7,7 @@ import java.util.Set;
 
 import de.coeins.aoc2023.Layered2DMap;
 import de.coeins.aoc2023.Layered2DMap.Direction;
+import de.coeins.aoc2023.Layered2DMap.Maze;
 import de.coeins.aoc2023.Layered2DMap.Point;
 
 class Day16 implements de.coeins.aoc2023.Day<Integer> {
@@ -17,8 +18,8 @@ class Day16 implements de.coeins.aoc2023.Day<Integer> {
 	public Integer task1(String[] in) {
 		Layered2DMap<Maze> map = Layered2DMap.parseCharacters(in, 0, Maze.class);
 		bestCost = Integer.MAX_VALUE;
-		int bestCost = move(map, new GameState(map.findInBase(Maze.Start).get(0), Direction.E, 0, new ArrayList<>()), true);
-		log(map.toString((pos, base, layers) -> base != Maze.Empty ? base.getOutputChar() : bestPath.contains(pos) ? '·' : ' '));
+		int bestCost = move(map, new GameState(map.findInBase(Maze.START).get(0), Direction.E, 0, new ArrayList<>()), true);
+		log(map.toString((pos, base, layers) -> base != Maze.EMPTY ? base.getOutputChar() : bestPath.contains(pos) ? '·' : ' '));
 		return bestCost;
 	}
 
@@ -26,8 +27,8 @@ class Day16 implements de.coeins.aoc2023.Day<Integer> {
 	public Integer task2(String[] in) {
 		Layered2DMap<Maze> map = Layered2DMap.parseCharacters(in, 0, Maze.class);
 		bestCost = Integer.MAX_VALUE;
-		move(map, new GameState(map.findInBase(Maze.Start).get(0), Direction.E, 0, new ArrayList<>()), false);
-		log(map.toString((pos, base, layers) -> base != Maze.Empty ? base.getOutputChar() : bestPath.contains(pos) ? '·' : ' '));
+		move(map, new GameState(map.findInBase(Maze.START).get(0), Direction.E, 0, new ArrayList<>()), false);
+		log(map.toString((pos, base, layers) -> base != Maze.EMPTY ? base.getOutputChar() : bestPath.contains(pos) ? '·' : ' '));
 		return bestPath.size() + 1;
 	}
 
@@ -40,7 +41,7 @@ class Day16 implements de.coeins.aoc2023.Day<Integer> {
 
 		if (map.getBase(state.pos) == Maze.End) {
 			if (bestCost > state.cost) {
-				log("Found a new best path, costing", state.cost);
+				// log("Found a new best path, costing", state.cost);
 				bestCost = state.cost;
 				bestPath = new HashSet<>();
 			}
@@ -51,7 +52,7 @@ class Day16 implements de.coeins.aoc2023.Day<Integer> {
 
 		List<Direction> possible = new ArrayList<>(3);
 		for (int i = -1; i <= 1; i++)
-			if (map.getBase(state.pos.applyDirection(state.dir.rotate90(i)), Maze.Wall) != Maze.Wall)
+			if (map.getBase(state.pos.applyDirection(state.dir.rotate90(i)), Maze.WALL) != Maze.WALL)
 				possible.add(state.dir.rotate90(i));
 
 		if (possible.isEmpty())
@@ -77,27 +78,5 @@ class Day16 implements de.coeins.aoc2023.Day<Integer> {
 	}
 
 	record GameState(Point pos, Direction dir, Integer cost, List<Point> path) {
-	}
-
-	enum Maze implements Layered2DMap.MapElement {
-		Empty('.', ' '), Wall('#', '▒'), Start('S', 'S'), End('E', 'E');
-
-		private char i;
-		private char o;
-
-		Maze(char i, char o) {
-			this.i = i;
-			this.o = o;
-		}
-
-		@Override
-		public char getParseChar() {
-			return i;
-		}
-
-		@Override
-		public char getOutputChar() {
-			return o;
-		}
 	}
 }

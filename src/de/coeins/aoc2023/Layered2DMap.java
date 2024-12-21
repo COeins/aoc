@@ -136,10 +136,17 @@ public class Layered2DMap<E extends Layered2DMap.MapElement> {
 	}
 
 	public void resetLayer(int layer) {
-		ensureLayer(layer);
 		for (int x = 0; x < height(); x++)
 			for (int y = 0; y < width(); y++)
 				setLayer(layer, new Point(x, y), 0);
+	}
+
+	public void copyLayer(int from, int to) {
+		for (int x = 0; x < height(); x++)
+			for (int y = 0; y < width(); y++) {
+				Point p = new Point(x, y);
+				setLayer(to, p, getLayer(from, p));
+			}
 	}
 
 	public void fillLayer(Point pos, int newValue) {
@@ -190,10 +197,10 @@ public class Layered2DMap<E extends Layered2DMap.MapElement> {
 		ensureLayer(layer);
 		return toString((_p, base, layers) -> {
 			int overlay = layer >= 0 ? layers[layer] : 0;
-			if (overlay > 9 || overlay < 0)
-				return '#';
+			if (overlay < 0)
+				return '-';
 			else if (overlay > 0)
-				return (char) ('0' + overlay);
+				return (char) ('0' + overlay % 10);
 			else if (base != null)
 				return base.getOutputChar();
 			else
@@ -261,7 +268,7 @@ public class Layered2DMap<E extends Layered2DMap.MapElement> {
 			};
 		}
 
- 		public Direction rotate90(int steps) {
+		public Direction rotate90(int steps) {
 			if (steps < 0)
 				return rotate90(steps + 4);
 			else if (steps == 0)
@@ -291,6 +298,33 @@ public class Layered2DMap<E extends Layered2DMap.MapElement> {
 
 		public int distance(Point c) {
 			return Math.abs(x - c.x) + Math.abs(y - c.y);
+		}
+	}
+
+	public enum Maze implements MapElement {
+		EMPTY('.', ' '), WALL('#', '▒'), START('S'), End('E'), X('X', 'X'),
+		UP('^'), DOWN('v'), LEFT('<'), RIGHT('>');
+
+		private char i;
+		private char o;
+
+		Maze(char c) {
+			this(c, c);
+		}
+
+		Maze(char i, char o) {
+			this.i = i;
+			this.o = o;
+		}
+
+		@Override
+		public char getParseChar() {
+			return i;
+		}
+
+		@Override
+		public char getOutputChar() {
+			return o;
 		}
 	}
 
